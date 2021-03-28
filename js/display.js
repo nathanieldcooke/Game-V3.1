@@ -1,7 +1,8 @@
 import Enemy from './gameObjects/enemy.js'
+import Planet from './gameObjects/planet.js'
 
 export default class Display {
-    constructor(enemies) {
+    constructor(enemies, planets) {
         // gets HTML canvas element that will display the game
         this.canvas = document.getElementById('game-window');
         // gets height and width of device, for the purpose of sizing canvas
@@ -15,7 +16,7 @@ export default class Display {
         this.ctx = this.canvas.getContext('2d');
 
         // gives display access to elments to be displayed
-        this.objectsToRender = [...enemies]
+        this.objectsToRender = [...enemies, ...planets]
     }
 
     render() {
@@ -23,25 +24,37 @@ export default class Display {
         this.ctx.shadowBlur = 0
         this.ctx.fillRect(0, 0, this.width, this.height)
         this.objectsToRender.forEach(object => {
-            if (object instanceof Enemy) this.renderEnemy(object)
+            if (object instanceof Enemy) {
+                this.renderEnemy(object);
+            } else if ( object instanceof Planet) {
+                this.renderPlanet(object);
+            }
         })
     }
     
     renderEnemy(enemy) {
-        // this.updateOrb()
         this.ctx.beginPath();
         this.ctx.shadowBlur = enemy.size * 3.5;
         this.ctx.shadowColor = enemy.color;
-        this.ctx.shadowBlur = enemy.size * 3.5;
-        this.ctx.shadowColor = enemy.color;
-        // ctx.shadowBlur = 0
-        console.log(enemy)
-        // this.ctx.beginPath();
 
         this.ctx.fillStyle = enemy.color;
-        this.ctx.arc(enemy.x, enemy.y, enemy.size, 0, 2 * Math.PI);
+        this.ctx.drawImage(enemy.img, enemy.x, enemy.y, enemy.size, enemy.size);
+        // })
         this.ctx.fill()
         this.ctx.shadowBlur = 0;
         this.ctx.stroke()
     }
+
+    renderPlanet(planet) {
+        this.ctx.beginPath();
+        this.ctx.shadowBlur = 20;
+        this.ctx.shadowColor = planet.color;
+        this.ctx.fillStyle = planet.color;
+        this.ctx.drawImage(planet.img, planet.x, planet.y, planet.width, planet.height);
+        this.ctx.fill()
+        this.ctx.shadowBlur = 0;
+        this.ctx.stroke()
+    }
+
+
 }
