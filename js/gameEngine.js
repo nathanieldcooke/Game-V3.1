@@ -21,12 +21,20 @@ export default class GameEngine {
         const currlevel = levels[this.levelNum]
         currlevel.forEach(enemy => {
             let enemyInst = new Enemy()
-
+                enemyInst.x = enemy.x; // this.x = x;
+                enemyInst.y = enemy.y; // this.y = y;
+                enemyInst.velX = enemy.velX; // this.velx = velx;
+                enemyInst.velY = enemy.velY;  // this.vely = vely;
+                enemyInst.size = enemy.cirRad; // this.size = size;
+                enemyInst.color = enemy.color; // this.color = color;
+                // this.height = height;
+                // this.width = width;
+                this.enemies.push(enemyInst)
         })
     }
 
     checkGameState() {
-        loop()
+        this.loop()
     }
 
     loop() {

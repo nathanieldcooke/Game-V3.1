@@ -1,3 +1,5 @@
+import Enemy from './gameObjects/enemy.js'
+
 export default class Display {
     constructor(enemies) {
         // gets HTML canvas element that will display the game
@@ -21,23 +23,25 @@ export default class Display {
         this.ctx.shadowBlur = 0
         this.ctx.fillRect(0, 0, this.width, this.height)
         this.objectsToRender.forEach(object => {
-            console.log('hello')
-            if (object instanceof Enemy) renderEnemy(object)
+            if (object instanceof Enemy) this.renderEnemy(object)
         })
     }
-
+    
     renderEnemy(enemy) {
         // this.updateOrb()
-        ctx.beginPath();
-        ctx.shadowBlur = this.size * 3.5;
-        ctx.shadowColor = this.color;
-        ctx.shadowBlur = this.size * 3.5;
-        ctx.shadowColor = this.color;
+        this.ctx.beginPath();
+        this.ctx.shadowBlur = enemy.size * 3.5;
+        this.ctx.shadowColor = enemy.color;
+        this.ctx.shadowBlur = enemy.size * 3.5;
+        this.ctx.shadowColor = enemy.color;
         // ctx.shadowBlur = 0
+        console.log(enemy)
+        // this.ctx.beginPath();
 
-        ctx.fillStyle = this.color;
-        ctx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
-        ctx.fill()
-        ctx.shadowBlur = 0;
+        this.ctx.fillStyle = enemy.color;
+        this.ctx.arc(enemy.x, enemy.y, enemy.size, 0, 2 * Math.PI);
+        this.ctx.fill()
+        this.ctx.shadowBlur = 0;
+        this.ctx.stroke()
     }
 }
