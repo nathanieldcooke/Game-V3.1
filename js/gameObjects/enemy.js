@@ -4,6 +4,4 @@ export default class Enemy extends GameObject {
     constructor() {
         super()
     }
-
-
 }
