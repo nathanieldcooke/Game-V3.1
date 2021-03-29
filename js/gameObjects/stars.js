@@ -9,7 +9,7 @@ export default class Star extends GameObject {
         if (this.radius === this.orgRadius || this.radius === 0) {
             this.increment = this.increment * -1
         } 
-        return this.radius += this.increment
+        return this.radius += this.increment * .25
     }
 
     static getRandomInt(min, max) {
@@ -46,4 +46,13 @@ export default class Star extends GameObject {
     static determineStarSize() {
         return this.getRandomInt(1, 4)
     }    
+
+    static startRadius(startRad) {
+        return this.getRandomInt(1, startRad);
+    }
+
+    static willFlicker() {
+        let num = this.getRandomInt(0, 4);
+        return (num === 3) ? true : false;
+    }
 }

@@ -24,7 +24,7 @@ export default class Display {
 
     render() {
         this.FRAME = (this.FRAME === 60) ? 0 : ++this.FRAME
-        this.ctx.fillStyle = 'rgba(0,0,0, .25)'
+        this.ctx.fillStyle = 'rgba(0,0,0, 1)'
         // this.ctx.shadowBlur = 0
         this.ctx.fillRect(0, 0, this.width, this.height)
         this.objectsToRender.forEach(object => {
@@ -40,7 +40,7 @@ export default class Display {
     
     renderEnemy(enemy) {
         this.ctx.beginPath();
-        this.ctx.shadowBlur = enemy.size * 3.5;
+        this.ctx.shadowBlur = enemy.size * 1.5;
         this.ctx.shadowColor = enemy.color;
         this.ctx.fillStyle = enemy.color;
 
@@ -68,7 +68,7 @@ export default class Display {
     renderStar(star) {
         this.ctx.beginPath();
         this.ctx.fillStyle = star.color;
-        if (this.FRAME % 10 === 0) {
+        if (this.FRAME % 30 === 0 && star.flicker) {
             star.nextSize()
         }
         this.ctx.arc(star.x, star.y, star.radius, 0, 2 * Math.PI);

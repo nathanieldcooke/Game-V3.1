@@ -71,8 +71,9 @@ export default class GameEngine {
                 star.y = offsets[1];
                 star.velX = 0;
                 star.velY = 0;
+                star.flicker = Star.willFlicker();
                 star.orgRadius = Star.determineStarSize();
-                star.radius = star.orgRadius;
+                star.radius = Star.startRadius(star.orgRadius);
                 star.color = 'rgba(255, 255, 255, 1)';
                 this.stars.push(star);
             }
