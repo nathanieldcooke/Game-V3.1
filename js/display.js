@@ -7,11 +7,15 @@ export default class Display {
         // gets HTML canvas element that will display the game
         this.canvas = document.getElementById('game-window');
         // gets height and width of device, for the purpose of sizing canvas
-        this.width = window.innerWidth;
-        this.height = window.innerHeight;
+        // this.width = window.innerWidth;
+        // this.height = window.innerHeight;
+        this.width = 812
+        this.height = 375;
         // sets height and width of canvas element to screen size
-        this.canvas.width = this.width;
-        this.canvas.height = this.height;
+        // this.canvas.width = this.width;
+        // this.canvas.height = this.height;
+        this.canvas.width = 812;
+        this.canvas.height = 375;
         // will set the context of the canvas element to 2d, and provide 
         // properties that come with canvas
         this.ctx = this.canvas.getContext('2d');

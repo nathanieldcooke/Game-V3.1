@@ -59,8 +59,8 @@ export default class GameEngine {
     }
 
     generateStarField() {
-        let fracOfWidth = window.innerWidth / 100;
-        let fracOfHeight = window.innerHeight / 100;
+        let fracOfWidth = 812 / 100;
+        let fracOfHeight = 375 / 100;
         this.stars = [];
         for(let i = 5; i <= 100; i += 10) {
             for(let j = 5; j <= 100; j += 10) {
@@ -87,7 +87,7 @@ export default class GameEngine {
     loop() {
         this.display.render()
         this.move.move()
-        requestAnimationFrame(this.checkGameState.bind(this))
+        // requestAnimationFrame(this.checkGameState.bind(this))
     }
 
 

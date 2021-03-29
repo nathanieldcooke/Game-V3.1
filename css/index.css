@@ -1,6 +1,6 @@
 body {
     margin: 0;
-    height: 100vh; 
+    height: 100vh;
     width: 100vw;
     position: relative;
     overflow: hidden;
@@ -12,6 +12,8 @@ body {
     width: inherit;
     height: inherit;
     display: flex;
+    justify-content: center;
+    align-self: center;
 }
 
 #game-window {
@@ -20,5 +22,8 @@ body {
     background: rgb(0, 0, 0); 
     /* position: relative;   */
     overflow: hidden;
-    position: absolute;
+    /* position: absolute; */
+    align-self: center;
+    justify-self: center;
+
 }
