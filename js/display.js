@@ -9,13 +9,14 @@ export default class Display {
         // gets height and width of device, for the purpose of sizing canvas
         // this.width = window.innerWidth;
         // this.height = window.innerHeight;
-        this.width = 812
-        this.height = 375;
+        this.mapDiameter = 812 * 1.5;
+        this.mapRadius = this.mapDiameter / 2
+        console.log(this.mapDiameter)
         // sets height and width of canvas element to screen size
         // this.canvas.width = this.width;
         // this.canvas.height = this.height;
-        this.canvas.width = 812;
-        this.canvas.height = 375;
+        this.canvas.width = this.mapDiameter;
+        this.canvas.height = this.mapDiameter;
         // will set the context of the canvas element to 2d, and provide 
         // properties that come with canvas
         this.ctx = this.canvas.getContext('2d');
@@ -28,16 +29,32 @@ export default class Display {
 
     render() {
         this.FRAME = (this.FRAME === 60) ? 0 : ++this.FRAME
-        this.ctx.fillStyle = 'rgba(0,0,0, 1)'
-        // this.ctx.shadowBlur = 0
-        this.ctx.fillRect(0, 0, this.width, this.height)
+
+
+        /// Draws containeing circle
+
+        this.ctx.beginPath();
+        this.ctx.arc(this.mapRadius, this.mapRadius, this.mapRadius, 0, 2 * Math.PI);
+        this.ctx.fillStyle = "black";
+        this.ctx.fill();
+        this.ctx.stroke();
+
+
+        /// Old Stuff to Hand on for now
+        // this.ctx.fillStyle = 'rgba(0,0,0, 1)'
+        // // this.ctx.shadowBlur = 0
+        // this.ctx.fillRect(0, 0, this.width, this.height)
+
+
+
+
         this.objectsToRender.forEach(object => {
             if (object instanceof Star) {
                 this.renderStar(object)
             } else if ( object instanceof Enemy ) {
-                this.renderEnemy(object);
+                // this.renderEnemy(object);
             } else if ( object instanceof Planet) {
-                this.renderPlanet(object);
+                // this.renderPlanet(object);
             }
         })
     }
@@ -71,10 +88,13 @@ export default class Display {
 
     renderStar(star) {
         this.ctx.beginPath();
-        this.ctx.fillStyle = star.color;
-        if (this.FRAME % 30 === 0 && star.flicker) {
-            star.nextSize()
+        // let starB
+        if (this.FRAME % 1 === 0 && star.flicker) {
+            star.nextBrightness()
         }
+        // starB = star.nextBrightness()
+        // console.log(this.brightness)
+        this.ctx.fillStyle = `rgba(255, 255, 255, ${star.currStarBrightness()})`;
         this.ctx.arc(star.x, star.y, star.radius, 0, 2 * Math.PI);
         this.ctx.fill();
         this.ctx.stroke();

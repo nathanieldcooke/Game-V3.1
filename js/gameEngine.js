@@ -10,6 +10,7 @@ export default class GameEngine {
     constructor(levelNum = 0) {
         this.levelNum = levelNum;
         this.start();
+        this.count = 0
     }
 
     start() {
@@ -59,35 +60,41 @@ export default class GameEngine {
     }
 
     generateStarField() {
-        let fracOfWidth = 812 / 100;
-        let fracOfHeight = 375 / 100;
+        let fracOfWidth = 1218 / 100;
+        let fracOfHeight = 1218 / 100;
         this.stars = [];
         for(let i = 5; i <= 100; i += 10) {
             for(let j = 5; j <= 100; j += 10) {
+                let currX = fracOfWidth * j
+                let currY = fracOfHeight * i
                 let star = new Star
-                star.increment = 1;
-                let offsets = Star.offsetStar(fracOfWidth * j, fracOfHeight * i, fracOfWidth, fracOfHeight)
+                // star.increment = 4.25;
+                let offsets = Star.offsetStar(currX, currY, fracOfWidth, fracOfHeight)
                 star.x = offsets[0]
                 star.y = offsets[1];
                 star.velX = 0;
                 star.velY = 0;
                 star.flicker = Star.willFlicker();
-                star.orgRadius = Star.determineStarSize();
-                star.radius = Star.startRadius(star.orgRadius);
-                star.color = 'rgba(255, 255, 255, 1)';
+                star.increment = 1;
+                star.radius = Star.determineStarSize();
+                star.brightness = Star.startBrightness();
+                console.log(star.brightness);
+                star.color = `rgba(255, 255, 255, ${star.brightness})`;
                 this.stars.push(star);
             }
         }
     }
 
     checkGameState() {
+        // if (this.count < 10) this.loop()
         this.loop()
     }
 
     loop() {
+        this.count++
         this.display.render()
         this.move.move()
-        // requestAnimationFrame(this.checkGameState.bind(this))
+        requestAnimationFrame(this.checkGameState.bind(this))
     }
 
 

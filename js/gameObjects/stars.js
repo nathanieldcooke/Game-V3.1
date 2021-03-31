@@ -1,15 +1,49 @@
 import GameObject from '../gameObject.js'
 
+const floatTranslate = {
+    '20': 1,
+    '19': .95,
+    '18': .9,
+    '17': .85,
+    '16': .8,
+    '15': .75,
+    '14': .7,
+    '13': .65,
+    '12': .6,
+    '11': .55,
+    '10': .5,
+    '9': .45,
+    '8': .4,
+    '7': .35,
+    '6': .3,
+    '5': .25,
+    '4': .2,
+    '3': .15,
+    '2': .1,
+    '1': .05
+}
+
+
 export default class Star extends GameObject {
     constructor() {
         super()
     }
 
-    nextSize() {
-        if (this.radius === this.orgRadius || this.radius === 0) {
-            this.increment = this.increment * -1
+    currStarBrightness() {
+        return floatTranslate[this.brightness]
+    }
+
+    nextBrightness() {
+        // if (this.brightness < 1) this.brightness = 1
+        // if (this.brightness > 10) this.brightness = 10
+        if (this.brightness < 1 || this.brightness > 20) {
+            this.increment = -(this.increment)
         } 
-        return this.radius += this.increment * .25
+        // console.log("Curr B: " + this.brightness)
+        // console.log("Next I: " + this.increment)
+        // console.log("Result: " + ( this.brightness + this.increment))
+        this.brightness += this.increment;
+        // console.log(res)
     }
 
     static getRandomInt(min, max) {
@@ -47,8 +81,8 @@ export default class Star extends GameObject {
         return this.getRandomInt(1, 4)
     }    
 
-    static startRadius(startRad) {
-        return this.getRandomInt(1, startRad);
+    static startBrightness() {
+        return this.getRandomInt(2, 20);
     }
 
     static willFlicker() {
