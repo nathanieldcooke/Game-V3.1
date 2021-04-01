@@ -57,12 +57,13 @@ export default class Collision {
 
     rocketToWall() {
         // if wall collision occures, travel slope is changed 45 degrees
-        let distanceOfCirFromCenter = Math.sqrt((this.mapRadius - this.rocket.x - (this.rocket.height / 2) + this.rocket.velX) ** 2 +
-                                                (this.mapRadius - this.rocket.y - (this.rocket.height / 2) + this.rocket.velY) ** 2);
-        console.log("D: " + distanceOfCirFromCenter) // 1600
-        console.log("O: " + (this.mapRadius - (this.rocket.width / 2))) /// 550
+        let distanceOfCirFromCenter = Math.sqrt((this.mapRadius - (this.rocket.x + this.rocket.velX)) ** 2 +
+                                                (this.mapRadius - (this.rocket.y + this.rocket.velY)) ** 2);
+        // console.log("D: " + distanceOfCirFromCenter) // 1600
+        // console.log("O: " + (this.mapRadius - (this.rocket.width / 2))) /// 550
         
-        if (distanceOfCirFromCenter > this.mapRadius - (this.rocket.height / 2)) {
+        if ((distanceOfCirFromCenter > this.mapRadius) && 
+            (distanceOfCirFromCenter > this.mapRadius)) {
             this.rocket.noWallContact = false;
             return
         } else {
