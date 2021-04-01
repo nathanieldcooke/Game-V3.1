@@ -1,9 +1,10 @@
 import Enemy from './gameObjects/enemy.js'
 import Planet from './gameObjects/planet.js'
 import Star from './gameObjects/stars.js'
+import Rocket from './gameObjects/rocket.js'
 
 export default class Display {
-    constructor(enemies, planets, stars) {
+    constructor(enemies, planets, stars, rocket) {
         // gets HTML canvas element that will display the game
         this.canvas = document.getElementById('game-window');
         // gets height and width of device, for the purpose of sizing canvas
@@ -11,7 +12,7 @@ export default class Display {
         // this.height = window.innerHeight;
         this.mapDiameter = 812 * 1.5;
         this.mapRadius = this.mapDiameter / 2
-        console.log(this.mapDiameter)
+        // console.log(this.mapDiameter)
         // sets height and width of canvas element to screen size
         // this.canvas.width = this.width;
         // this.canvas.height = this.height;
@@ -22,7 +23,7 @@ export default class Display {
         this.ctx = this.canvas.getContext('2d');
 
         // gives display access to elments to be displayed
-        this.objectsToRender = [...stars, ...enemies, ...planets];
+        this.objectsToRender = [...stars, ...enemies, ...planets, rocket];
 
         this.FRAME = 1
     }
@@ -47,14 +48,15 @@ export default class Display {
 
 
 
-
         this.objectsToRender.forEach(object => {
             if (object instanceof Star) {
-                this.renderStar(object)
+                this.renderStar(object);
             } else if ( object instanceof Enemy ) {
-                // this.renderEnemy(object);
-            } else if ( object instanceof Planet) {
-                // this.renderPlanet(object);
+                this.renderEnemy(object);
+            } else if ( object instanceof Planet ) {
+                this.renderPlanet(object);
+            } else if ( object instanceof Rocket ) {
+                this.renderRocket(object);
             }
         })
     }
@@ -89,7 +91,7 @@ export default class Display {
     renderStar(star) {
         this.ctx.beginPath();
         // let starB
-        if (this.FRAME % 1 === 0 && star.flicker) {
+        if (this.FRAME % 2 === 0 && star.flicker) {
             star.nextBrightness()
         }
         // starB = star.nextBrightness()
@@ -100,5 +102,13 @@ export default class Display {
         this.ctx.stroke();
     }
 
-
+    renderRocket(rocket) {
+        this.ctx.save();
+        this.ctx.translate(rocket.x, rocket.y);
+        this.ctx.rotate(rocket.degree * Math.PI / 180);
+        this.ctx.translate(-rocket.x, -rocket.y);
+        // this.ctx.translate(-this.positionX * this.scale, -this.positionY * this.scale);
+        this.ctx.drawImage(rocket.img, rocket.centerY, rocket.centerX, rocket.width, rocket.height);
+        this.ctx.restore()
+    }
 }

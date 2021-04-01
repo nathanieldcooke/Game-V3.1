@@ -36,7 +36,7 @@ export default class Star extends GameObject {
     nextBrightness() {
         // if (this.brightness < 1) this.brightness = 1
         // if (this.brightness > 10) this.brightness = 10
-        if (this.brightness < 1 || this.brightness > 20) {
+        if (this.brightness < 2 || this.brightness >= 20) {
             this.increment = -(this.increment)
         } 
         // console.log("Curr B: " + this.brightness)
@@ -78,7 +78,14 @@ export default class Star extends GameObject {
     }
 
     static determineStarSize() {
-        return this.getRandomInt(1, 4)
+        let num = this.getRandomInt(1, 10)
+        if (num >= 9) {
+            return 3
+        } else if ( num >= 6) {
+            return 2 
+        } else {
+            return 1
+        }
     }    
 
     static startBrightness() {

@@ -26,3 +26,44 @@ body {
     align-self: center;
     justify-self: center;
 }
+
+
+
+
+
+#buttons {
+    display: grid;
+    grid-template-areas: "left shoot right";
+    height: 12%;
+    width: 80%;
+    justify-self: flex-start;
+    align-self: center;
+    position: absolute;
+    bottom: 0px;
+    z-index: 1;
+}
+
+#right-button {
+    grid-area: right;
+    background-image: url('../img/stainless.png');
+    border-top-right-radius: 20px;
+    outline: none;
+}
+
+#shoot-button {
+    grid-area: shoot;
+    background-image: url('../img/stainless.png');
+    outline: none;
+}
+
+#left-button {
+    grid-area: left;
+    background-image: url('../img/stainless.png');
+    border-top-left-radius: 20px;
+    outline: none;
+}
+
+i {
+    color: white;
+   font-size: 2em;
+}
