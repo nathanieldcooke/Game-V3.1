@@ -1,6 +1,7 @@
 import Enemy from './gameObjects/enemy.js'
 import Rocket from './gameObjects/rocket.js'
-import { angelToSlope } from './gameUtils.js'
+import { angelToSlope, mapDiameter, mapRadius } from './gameUtils.js'
+
 
 export default class Move {
     constructor(enemies, rocket) {
@@ -23,17 +24,12 @@ export default class Move {
 
         this.canvasEle = document.querySelector('#game-window');
         this.canvasEleMarginT = 0
-        this.canvasEleMarginL = -200
+        this.canvasEleMarginL = 0
 
 
-
-
-        // this.width = window.innerWidth;
-        // this.height = window.innerHeight;
-        this.mapDiameter = 812 * 1.5;
-        this.mapRadius = this.mapDiameter / 2
-        this.width = 812
-        this.height = 375;
+        // this.mapDiameter = 812 * 1.5;
+        // this.width = 812
+        // this.height = 375;
 
         this.objectsToMove = [...enemies, rocket]
         

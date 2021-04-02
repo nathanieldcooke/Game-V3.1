@@ -1,13 +1,16 @@
 import Enemy from "./gameObjects/enemy.js";
 import Rocket from './gameObjects/rocket.js';
+import { angelToSlope, mapDiameter, mapRadius } from './gameUtils.js'
+
 
 export default class Collision {
     constructor(enemies, planets, stars, rocket) {
-        // gets height and width of device, for the purpose of sizing canvas
-        this.width = window.innerWidth;
-        this.height = window.innerHeight;
-        this.mapDiameter = 812 * 1.5;
-        this.mapRadius = this.mapDiameter / 2
+
+
+
+
+
+        // this.mapDiameter = 812 * 1.5;
         // gives display access to elments to be displayed
         this.enemies = enemies;
         this.planets = planets;
@@ -47,8 +50,8 @@ export default class Collision {
     enemyToWall() {
         // if wall collision occures, travel slope is changed 45 degrees
         this.enemies.forEach(enemy => {
-            let distanceOfCirFromCenter = Math.sqrt((this.mapRadius - enemy.x - enemy.size / 2) ** 2 + (this.mapRadius - enemy.y - enemy.size / 2) ** 2)
-            if (distanceOfCirFromCenter > this.mapRadius - (enemy.size / 2)) {
+            let distanceOfCirFromCenter = Math.sqrt((mapRadius - enemy.x - enemy.size / 2) ** 2 + (mapRadius - enemy.y - enemy.size / 2) ** 2)
+            if (distanceOfCirFromCenter > mapRadius - (enemy.size / 2)) {
                 enemy.degree = (enemy.degree + 45) % 360
                 Enemy.setVelXandY(enemy)
             }
@@ -57,13 +60,13 @@ export default class Collision {
 
     rocketToWall() {
         // if wall collision occures, travel slope is changed 45 degrees
-        let distanceOfCirFromCenter = Math.sqrt((this.mapRadius - (this.rocket.x + this.rocket.velX)) ** 2 +
-                                                (this.mapRadius - (this.rocket.y + this.rocket.velY)) ** 2);
+        let distanceOfCirFromCenter = Math.sqrt((mapRadius - (this.rocket.x + this.rocket.velX)) ** 2 +
+                                                (mapRadius - (this.rocket.y + this.rocket.velY)) ** 2);
         // console.log("D: " + distanceOfCirFromCenter) // 1600
         // console.log("O: " + (this.mapRadius - (this.rocket.width / 2))) /// 550
         
-        if ((distanceOfCirFromCenter > this.mapRadius) && 
-            (distanceOfCirFromCenter > this.mapRadius)) {
+        if ((distanceOfCirFromCenter > mapRadius) && 
+            (distanceOfCirFromCenter > mapRadius)) {
             this.rocket.noWallContact = false;
             return
         } else {

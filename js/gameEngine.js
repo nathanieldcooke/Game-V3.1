@@ -6,13 +6,18 @@ import levels from './levels.js'
 import Planet from './gameObjects/planet.js'
 import Star from './gameObjects/stars.js'
 import Collision from './collision.js'
+import { mapDiameter, mapRadius } from './gameUtils.js'
+
 // import image from './image.js'
 
 export default class GameEngine {
     constructor(levelNum = 0) {
+  
         this.levelNum = levelNum;
         this.start();
         this.count = 0
+
+
     }
 
     start() {
@@ -69,8 +74,8 @@ export default class GameEngine {
     }
 
     generateStarField() {
-        let fracOfWidth = 1218 / 300;
-        let fracOfHeight = 1218 / 300;
+        let fracOfWidth = mapDiameter / 300;
+        let fracOfHeight = mapDiameter / 300;
         this.stars = [];
         for(let i = 5; i <= 300; i += 7) {
             for(let j = 5; j <= 300; j += 7) {
@@ -78,7 +83,7 @@ export default class GameEngine {
                 let currY = fracOfHeight * i
 
                 
-                if (Math.sqrt((609 - currX) ** 2 + (609 - currY) ** 2) > 609) continue;
+                if (Math.sqrt((mapRadius - currX) ** 2 + (mapRadius - currY) ** 2) > mapRadius) continue;
                 let star = new Star
                 // star.increment = 4.25;
                 let offsets = Star.offsetStar(currX, currY, fracOfWidth, fracOfHeight)
@@ -98,13 +103,13 @@ export default class GameEngine {
 
     generateRocket() {
 
-        this.mapDiameter = 812 * 1.5;
-        this.mapRadius = this.mapDiameter / 2
+        // this.mapDiameter = 812 * 1.5;
+        // this.mapRadius = this.mapDiameter / 2
 
         // sets rocket
         this.rocket = new Rocket();
-        this.rocket.y = this.mapRadius;
-        this.rocket.x = this.mapRadius;
+        this.rocket.y = mapRadius;
+        this.rocket.x = mapRadius;
         this.rocket.width = 80;
         this.rocket.height = 100;
         this.rocket.centerX = this.rocket.x - this.rocket.width / 2;

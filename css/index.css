@@ -19,7 +19,8 @@ body {
 
 #game-window {
     margin-top: 0px;
-    margin-left: -200px;
+    /* -200px */
+    margin-left: 0px;
     /* margin: 100px; 
     padding: 100px;  */
     position: absolute;
@@ -27,7 +28,7 @@ body {
     /* position: relative;   */
     overflow: hidden;
     /* position: absolute; */
-    /* align-self: center; */
+    align-self: center;
     /* justify-self: center; */
 }
 
