@@ -1,4 +1,4 @@
-import { angelToSlope } from './gameUtils.js'
+import { angelToSlope, oneFrac } from './gameUtils.js'
 let levels = null
 export default levels = [
     [
@@ -7,7 +7,7 @@ export default levels = [
 
             {
                 x: 700,
-                y: 300,
+                y: 350,
                 degree: 10,
                 cirRad: 40,
                 color: 'rgba(255, 0, 255, 1)',
@@ -23,7 +23,7 @@ export default levels = [
             },
             {
                 x: 200,
-                y: 240,
+                y: 230,
                 degree: 180,
                 cirRad: 70,
                 color: 'rgba(0, 0, 255, 1)',
@@ -33,7 +33,7 @@ export default levels = [
         [
             {
                 x: 150,
-                y: 350,
+                y: 300,
                 velX: 5,
                 velY: 5,
                 height: 150,
@@ -42,8 +42,8 @@ export default levels = [
                 imageSrc: './img/purple-planet.png'
             },
             {
-                x: 550,
-                y: 700,
+                x: 350,
+                y: 600,
                 velX: 5,
                 velY: 5,
                 height: 200,
@@ -52,7 +52,7 @@ export default levels = [
                 imageSrc: './img/blue-planet.png'
             },
             {
-                x: 900,
+                x: 700,
                 y: 200,
                 velX: 5,
                 velY: 5,

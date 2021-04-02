@@ -1,8 +1,8 @@
-import { angelToSlope } from './gameUtils.js'
+import { angelToSlope, oneFrac } from './gameUtils.js'
 
 export default class GameObject {
     constructor() {
-        
+        // GameObject.TRAVEL_SPEED = .75
     }
 
     static setVelXandY(enemy) {
@@ -20,7 +20,7 @@ export default class GameObject {
             slope = angelToSlope[`${modDegree}`];
             slope = [(slope[1]), (-slope[0])]
         }
-        enemy.velX = slope[0] //* this.TRAVEL_SPEED;
-        enemy.velY = slope[1] //* this.TRAVEL_SPEED;
+        enemy.velX = (slope[0] * oneFrac) * enemy.TRAVEL_SPEED;
+        enemy.velY = (slope[1] * oneFrac) * enemy.TRAVEL_SPEED; 
     }
 } 

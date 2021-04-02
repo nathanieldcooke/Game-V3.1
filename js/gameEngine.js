@@ -6,7 +6,7 @@ import levels from './levels.js'
 import Planet from './gameObjects/planet.js'
 import Star from './gameObjects/stars.js'
 import Collision from './collision.js'
-import { mapDiameter, mapRadius } from './gameUtils.js'
+import { mapDiameter, mapRadius, oneFrac } from './gameUtils.js'
 
 // import image from './image.js'
 
@@ -37,8 +37,8 @@ export default class GameEngine {
         const currlevel = levels[this.levelNum][0]
         currlevel.forEach(enemy => {
             let enemyInst = new Enemy()
-                enemyInst.x = enemy.x; // this.x = x;
-                enemyInst.y = enemy.y; // this.y = y;
+                enemyInst.x = enemy.x * oneFrac; // this.x = x;
+                enemyInst.y = enemy.y * oneFrac; // this.y = y;
                 enemyInst.degree = enemy.degree;
                 Enemy.setVelXandY(enemyInst);
                 // console.log('VX:' + enemyInst.velX)
@@ -60,8 +60,8 @@ export default class GameEngine {
         const currlevel = levels[this.levelNum][1]
         currlevel.forEach(planet => {
             let planetInst = new Planet()
-            planetInst.x = planet.x; // this.x = x;
-            planetInst.y = planet.y; // this.y = y;
+            planetInst.x = planet.x * oneFrac; // this.x = x;
+            planetInst.y = planet.y * oneFrac; // this.y = y;
             planetInst.velX = planet.velX; // this.velx = velx;
             planetInst.velY = planet.velY;  // this.vely = vely;
             planetInst.width = planet.width; // this.size = size;
