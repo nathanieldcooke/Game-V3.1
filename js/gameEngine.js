@@ -25,7 +25,7 @@ export default class GameEngine {
         this.generatePlanets()
         this.generateStarField()
         this.generateRocket()
-        this.move = new Move(this.enemies, this.rocket);
+        this.move = new Move(this.enemies, this.rocket, this.planets);
         this.display = new Display(this.enemies, this.planets, this.stars, this.rocket);
         this.collision = new Collision(this.enemies, this.planets, this.stars, this.rocket)
         this.loop()
@@ -69,6 +69,30 @@ export default class GameEngine {
             planetInst.color = planet.color; // this.color = color;
             planetInst.img = new Image();
             planetInst.img.src = planet.imageSrc;
+
+
+            // planet eyes
+            planetInst.radiusEyeIn = 3; // controls puple size
+
+            planetInst.eyeYPosition = planetInst.y - 80; // controlls eyes vertical position relative to face
+
+            planetInst.reyedx = planetInst.x + (planetInst.radiusEyeIn / 2) + 14 // controls postion of right puple
+            planetInst.reyedy = planetInst.eyeYPosition
+
+            planetInst.leyedx = planetInst.x - (planetInst.radiusEyeIn / 2) - 14 // controls postion of left puple
+            planetInst.leyedy = planetInst.eyeYPosition
+
+            
+            planetInst.eyesgap = 4; // controls how off center the puples eye trackiing is
+            
+            planetInst.reyedxafter = planetInst.reyedx;
+            planetInst.reyedyafter = planetInst.reyedy;
+            
+            planetInst.leyedxafter = planetInst.leyedx;
+            console.log(planetInst.leyedx)
+            console.log(planetInst.reyedx)
+            planetInst.leyedyafter = planetInst.leyedy;
+
             this.planets.push(planetInst)
         })
     }
@@ -119,13 +143,10 @@ export default class GameEngine {
         Rocket.setVelXandY(this.rocket);
         this.rocket.img = new Image();
         this.rocket.img.src = './img/new-rocket-cut.png';
-
-
-
     }
 
     checkGameState() {
-        // this.loop();
+        this.loop();
     }
 
     loop() {

@@ -1,25 +1,17 @@
 import Enemy from './gameObjects/enemy.js'
 import Rocket from './gameObjects/rocket.js'
+import Planet from './gameObjects/planet.js'
 import { angelToSlope, mapDiameter, mapRadius } from './gameUtils.js'
-
+import Controller from './controller.js'
 
 export default class Move {
-    constructor(enemies, rocket) {
+    constructor(enemies, rocket, planets) {
 
         //////////////////////////////////////
         /////Rocket Movement Button Setup/////
         //////////////////////////////////////
-        this.rightButton = document.getElementById('right-button');
-        this.leftButton = document.getElementById('left-button');
-
-        this.rightButton.addEventListener('touchstart', this.rightClickDownAction);
-        this.rightButton.addEventListener('touchend', this.rightClickUpAction);
-        this.leftButton.addEventListener('touchstart', this.leftClickDownAction);
-        this.leftButton.addEventListener('touchend', this.leftClickUpAction);
-
-        this.touchDownR = false;
-        this.touchDownL = false;
-
+       
+        this.controller = new Controller()
         this.ROTATE_SPEED = 5;
 
         this.canvasEle = document.querySelector('#game-window');
@@ -31,7 +23,9 @@ export default class Move {
         // this.width = 812
         // this.height = 375;
 
-        this.objectsToMove = [...enemies, rocket]
+        this.rocket = rocket
+
+        this.objectsToMove = [...enemies, rocket, ...planets]
         
         this.FRAME = 1
     }
@@ -40,9 +34,11 @@ export default class Move {
         this.FRAME = (this.FRAME === 60) ? 0 : ++this.FRAME
         this.objectsToMove.forEach(object => {
             if (object instanceof Enemy) {
-                this.moveEnemy(object)
+                // this.moveEnemy(object)
             } else if (object instanceof Rocket) {
                 this.moveRocket(object)
+            } else if (object instanceof Planet) {
+                this.movePlanet(object)
             }
         })
     }
@@ -88,11 +84,11 @@ export default class Move {
     
     rotateShip(rocket) {
         for (let i = 0; i < this.ROTATE_SPEED; i++) {
-            if (this.touchDownR) {
+            if (this.controller.touchDownR) {
                 // console.log('hellloo')            
                 (rocket.degree + 1 > 359) ? rocket.degree = 0 : rocket.degree += 1
             }
-            if (this.touchDownL) {
+            if (this.controller.touchDownL) {
                 (rocket.degree === 0) ? rocket.degree = 359 : rocket.degree -= 1
             }
             // rocket.quadControlPoint = rocket.positionX - rocket.positionY
@@ -100,21 +96,46 @@ export default class Move {
         Rocket.setVelXandY(rocket);
     }
 
-    rightClickDownAction = (e) => {
-        this.touchDownR = true;
+
+
+
+    movePlanet(planet) {
+        //focus on eye movement now.
+    var mouseX = this.rocket.x - 8 - planet.x;
+    var mouseY = this.rocket.y - 8 - planet.eyeYPosition;
+    // console.log(this.offsetTop)
+    // console.log('hello')
+    // console.log(mouseX)
+    // console.log(mouseY)
+    // console.log('hello', planet.eyeYPosition, planet.x)
+
+    var ratioX = Math.abs(mouseX) / (Math.abs(mouseX) + Math.abs(mouseY));
+    var ratioY = Math.abs(mouseY) / (Math.abs(mouseX) + Math.abs(mouseY));
+
+
+    if (mouseX > 0) {
+        planet.reyedxafter = planet.reyedx + (ratioX * planet.eyesgap);
+    } else {
+        planet.reyedxafter = planet.reyedx - (ratioX * planet.eyesgap);
     }
 
-    rightClickUpAction = (e) => {
-        this.touchDownR = false;
+    if (mouseY > 0) {
+        planet.reyedyafter = planet.reyedy + (ratioY * planet.eyesgap);
+    } else {
+        planet.reyedyafter = planet.reyedy - (ratioY * planet.eyesgap);
     }
 
-    leftClickDownAction = (e) => {
-        this.touchDownL = true;
+    if (mouseX > 0) {
+        planet.leyedxafter = planet.leyedx + (ratioX * planet.eyesgap);
+    } else {
+        planet.leyedxafter = planet.leyedx - (ratioX * planet.eyesgap);
     }
-                                   
-    leftClickUpAction = (e) => {  
-        this.touchDownL = false;
-    }                             
 
+    if (mouseY > 0) {
+        planet.leyedyafter = planet.leyedy + (ratioY * planet.eyesgap);
+    } else {
+        planet.leyedyafter = planet.leyedy - (ratioY * planet.eyesgap);
+    }
+    }
 
 }
