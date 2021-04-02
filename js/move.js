@@ -21,6 +21,10 @@ export default class Move {
 
         this.ROTATE_SPEED = 5;
 
+        this.canvasEle = document.querySelector('#game-window');
+        this.canvasEleMarginT = 0
+        this.canvasEleMarginL = -200
+
 
 
 
@@ -73,11 +77,17 @@ export default class Move {
             rocket.y += rocket.velY
             rocket.centerY += rocket.velX
             rocket.centerX += rocket.velY
-        }
+            // console.log(this.canvasEle)
 
-        // console.log(rocket.y)
-        // console.log(rocket.centerY)
-        // console.log(rocket.degree)                
+            this.canvasEleMarginT -= rocket.velY * 1.25;
+            this.canvasEleMarginL -= rocket.velX * 1.25;
+
+            this.canvasEle.style.marginTop = `${this.canvasEleMarginT}px`
+            this.canvasEle.style.marginLeft = `${this.canvasEleMarginL}px`
+            //move map
+            
+        }
+             
     }
     
     rotateShip(rocket) {
