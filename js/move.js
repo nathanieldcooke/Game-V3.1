@@ -1,17 +1,18 @@
 import Enemy from './gameObjects/enemy.js'
 import Rocket from './gameObjects/rocket.js'
 import Planet from './gameObjects/planet.js'
+import Bullet from './gameObjects/bullet.js'
 import { angelToSlope, mapDiameter, mapRadius } from './gameUtils.js'
 import Controller from './controller.js'
 
 export default class Move {
-    constructor(enemies, rocket, planets) {
+    constructor(enemies, rocket, planets, bullets) {
 
         //////////////////////////////////////
         /////Rocket Movement Button Setup/////
         //////////////////////////////////////
        
-        this.controller = new Controller()
+        this.controller = new Controller(bullets, rocket)
         this.ROTATE_SPEED = 5;
 
         this.canvasEle = document.querySelector('#game-window');
@@ -24,22 +25,27 @@ export default class Move {
         // this.height = 375;
 
         this.rocket = rocket
-
-        this.objectsToMove = [...enemies, rocket, ...planets]
+        this.bullets = bullets
+        this.objectsToMove = [enemies, [rocket], planets, bullets]
         
         this.FRAME = 1
     }
 
     move() {
         this.FRAME = (this.FRAME === 60) ? 0 : ++this.FRAME
-        this.objectsToMove.forEach(object => {
-            if (object instanceof Enemy) {
-                this.moveEnemy(object)
-            } else if (object instanceof Rocket) {
-                this.moveRocket(object)
-            } else if (object instanceof Planet) {
-                this.movePlanet(object)
-            }
+        this.objectsToMove.forEach(objectArr => {
+            objectArr.forEach(object => {
+
+                if (object instanceof Enemy) {
+                    this.moveEnemy(object)
+                } else if (object instanceof Rocket) {
+                    this.moveRocket(object)
+                } else if (object instanceof Planet) {
+                    this.movePlanet(object)
+                } else if (object instanceof Bullet) {
+                    this.moveBullet(object)
+                }
+            })
         })
     }
 
@@ -48,15 +54,20 @@ export default class Move {
 
         // // if wall collision occures, travel slope is changed 45 degrees
         // if (distanceOfCirFromCenter > this.mapRadius - (enemy.size / 2)) {
-        //     enemy.degree = (enemy.degree + 45) % 360
-        //     Enemy.setVelXandY(enemy)
-        // }
-
-        // updated position of enemy
+            //     enemy.degree = (enemy.degree + 45) % 360
+            //     Enemy.setVelXandY(enemy)
+            // }
+            
+            // updated position of enemy
         enemy.x += enemy.velX
         enemy.y += enemy.velY
     }
-
+        
+    moveBullet(bullet) {
+        // console.log(bullet)
+        bullet.x += bullet.velX
+        bullet.y += bullet.velY
+    }
 
     ///////////////////////////
     //////Rocket Movement//////
@@ -137,5 +148,6 @@ export default class Move {
         planet.leyedyafter = planet.leyedy - (ratioY * planet.eyesgap);
     }
     }
+
 
 }

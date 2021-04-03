@@ -3,10 +3,11 @@ import Planet from './gameObjects/planet.js'
 import Star from './gameObjects/stars.js'
 import Rocket from './gameObjects/rocket.js'
 import { mapDiameter, mapRadius } from './gameUtils.js'
+import Bullet from './gameObjects/bullet.js'
 
 
 export default class Display {
-    constructor(enemies, planets, stars, rocket) {
+    constructor(enemies, planets, stars, rocket, bullets) {
         // gets HTML canvas element that will display the game
         this.canvas = document.getElementById('game-window');
 
@@ -23,7 +24,7 @@ export default class Display {
         this.ctx = this.canvas.getContext('2d');
 
         // gives display access to elments to be displayed
-        this.objectsToRender = [...stars, ...enemies, ...planets, rocket];
+        this.objectsToRender = [stars, enemies, planets, [rocket], bullets];
 
         this.FRAME = 1
     }
@@ -48,16 +49,20 @@ export default class Display {
 
 
 
-        this.objectsToRender.forEach(object => {
-            if (object instanceof Star) {
-                this.renderStar(object);
-            } else if ( object instanceof Enemy ) {
-                this.renderEnemy(object);
-            } else if ( object instanceof Planet ) {
-                this.renderPlanet(object);
-            } else if ( object instanceof Rocket ) {
-                this.renderRocket(object);
-            }
+        this.objectsToRender.forEach(objectArr => {
+            objectArr.forEach(object => {
+                if (object instanceof Star) {
+                    this.renderStar(object);
+                } else if ( object instanceof Enemy ) {
+                    this.renderEnemy(object);
+                } else if ( object instanceof Planet ) {
+                    this.renderPlanet(object);
+                } else if ( object instanceof Rocket ) {
+                    this.renderRocket(object);
+                } else if ( object instanceof Bullet ) {
+                    this.renderBullet(object);
+                }
+            })
         })
     }
     
@@ -128,5 +133,14 @@ export default class Display {
         // this.ctx.translate(-this.positionX * this.scale, -this.positionY * this.scale);
         this.ctx.drawImage(rocket.img, rocket.centerY, rocket.centerX, rocket.width, rocket.height);
         this.ctx.restore()
+    }
+
+    renderBullet(bullet) {
+        this.ctx.beginPath()
+        this.ctx.fillStyle = `rgba(255, 0, 0, 1)`;
+        this.ctx.arc(bullet.x, bullet.y, bullet.size, 0, 2 * Math.PI);
+        this.ctx.fill();
+        this.ctx.stroke();
+        // console.log('bullet')
     }
 }

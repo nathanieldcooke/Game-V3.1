@@ -25,9 +25,10 @@ export default class GameEngine {
         this.generatePlanets()
         this.generateStarField()
         this.generateRocket()
-        this.move = new Move(this.enemies, this.rocket, this.planets);
-        this.display = new Display(this.enemies, this.planets, this.stars, this.rocket);
-        this.collision = new Collision(this.enemies, this.planets, this.stars, this.rocket)
+        this.bullets = []
+        this.move = new Move(this.enemies, this.rocket, this.planets, this.bullets);
+        this.display = new Display(this.enemies, this.planets, this.stars, this.rocket, this.bullets);
+        this.collision = new Collision(this.enemies, this.planets, this.stars, this.rocket, this.bullets)
         this.loop()
     }
 
@@ -79,7 +80,7 @@ export default class GameEngine {
             planetInst.radiusEyeIn = onePercent / 2 ; // controls puple size
                                                     //-10
             planetInst.eyeYPosition = planetInst.centerY - onePercent * 2; // controlls eyes vertical position relative to face
-            console.log(planetInst.centerX)
+            // console.log(planetInst.centerX)
             planetInst.reyedx = planetInst.centerX + (planetInst.radiusEyeIn / 2) + onePercent * 2 ; // controls postion of right puple
             planetInst.reyedy = planetInst.eyeYPosition ;
 
@@ -94,8 +95,8 @@ export default class GameEngine {
             
             planetInst.leyedxafter = planetInst.leyedx ;
             planetInst.leyedyafter = planetInst.leyedy ;
-            console.log(planetInst.leyedx)
-            console.log(planetInst.reyedx)
+            // console.log(planetInst.leyedx)
+            // console.log(planetInst.reyedx)
 
             this.planets.push(planetInst)
         })
