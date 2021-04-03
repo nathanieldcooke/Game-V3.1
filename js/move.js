@@ -37,13 +37,13 @@ export default class Move {
             objectArr.forEach(object => {
 
                 if (object instanceof Enemy) {
-                    this.moveEnemy(object)
+                    // this.moveEnemy(object)
                 } else if (object instanceof Rocket) {
                     this.moveRocket(object)
                 } else if (object instanceof Planet) {
-                    this.movePlanet(object)
+                    // this.movePlanet(object)
                 } else if (object instanceof Bullet) {
-                    this.moveBullet(object)
+                    // this.moveBullet(object)
                 }
             })
         })
@@ -82,8 +82,8 @@ export default class Move {
             rocket.centerX += rocket.velY
             // console.log(this.canvasEle)
 
-            this.canvasEleMarginT -= rocket.velY * 1.25;
-            this.canvasEleMarginL -= rocket.velX * 1.25;
+            this.canvasEleMarginT -= rocket.velY * 2;
+            this.canvasEleMarginL -= rocket.velX * 2;
 
             this.canvasEle.style.marginTop = `${this.canvasEleMarginT}px`
             this.canvasEle.style.marginLeft = `${this.canvasEleMarginL}px`

@@ -52,15 +52,15 @@ export default class Display {
         this.objectsToRender.forEach(objectArr => {
             objectArr.forEach(object => {
                 if (object instanceof Star) {
-                    this.renderStar(object);
+                    // this.renderStar(object);
                 } else if ( object instanceof Enemy ) {
-                    this.renderEnemy(object);
+                    // this.renderEnemy(object);
                 } else if ( object instanceof Planet ) {
-                    this.renderPlanet(object);
+                    // this.renderPlanet(object);
                 } else if ( object instanceof Rocket ) {
                     this.renderRocket(object);
                 } else if ( object instanceof Bullet ) {
-                    this.renderBullet(object);
+                    // this.renderBullet(object);
                 }
             })
         })
