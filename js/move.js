@@ -34,7 +34,7 @@ export default class Move {
         this.FRAME = (this.FRAME === 60) ? 0 : ++this.FRAME
         this.objectsToMove.forEach(object => {
             if (object instanceof Enemy) {
-                // this.moveEnemy(object)
+                this.moveEnemy(object)
             } else if (object instanceof Rocket) {
                 this.moveRocket(object)
             } else if (object instanceof Planet) {
@@ -101,8 +101,8 @@ export default class Move {
 
     movePlanet(planet) {
         //focus on eye movement now.
-    var mouseX = this.rocket.x - 8 - planet.x;
-    var mouseY = this.rocket.y - 8 - planet.eyeYPosition;
+    var mouseX = this.rocket.centerY - 8 - planet.x;
+    var mouseY = this.rocket.centerX - 8 - planet.eyeYPosition;
     // console.log(this.offsetTop)
     // console.log('hello')
     // console.log(mouseX)

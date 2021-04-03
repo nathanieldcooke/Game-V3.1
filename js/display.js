@@ -50,9 +50,9 @@ export default class Display {
 
         this.objectsToRender.forEach(object => {
             if (object instanceof Star) {
-                // this.renderStar(object);
+                this.renderStar(object);
             } else if ( object instanceof Enemy ) {
-                // this.renderEnemy(object);
+                this.renderEnemy(object);
             } else if ( object instanceof Planet ) {
                 this.renderPlanet(object);
             } else if ( object instanceof Rocket ) {
@@ -94,14 +94,14 @@ export default class Display {
         // draws right puple
         this.ctx.beginPath();
         this.ctx.arc(planet.reyedxafter, planet.reyedyafter, planet.radiusEyeIn, 0, 2 * Math.PI, false);
-        this.ctx.fillStyle = 'rgba(255,0,0,1)';
+        this.ctx.fillStyle = 'rgba(0,0,0,1)';
         this.ctx.fill();
         this.ctx.stroke()
 
         // draws left puple
         this.ctx.beginPath();
         this.ctx.arc(planet.leyedxafter, planet.leyedyafter, planet.radiusEyeIn, 0, 2 * Math.PI, false);
-        this.ctx.fillStyle = 'rgba(255,0,0,1)';
+        this.ctx.fillStyle = 'rgba(0,0,0,1)';
         this.ctx.fill();
         this.ctx.stroke()
     }

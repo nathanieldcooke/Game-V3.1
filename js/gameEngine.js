@@ -6,7 +6,7 @@ import levels from './levels.js'
 import Planet from './gameObjects/planet.js'
 import Star from './gameObjects/stars.js'
 import Collision from './collision.js'
-import { mapDiameter, mapRadius, oneFrac } from './gameUtils.js'
+import { mapDiameter, mapRadius } from './gameUtils.js'
 
 // import image from './image.js'
 
@@ -37,8 +37,8 @@ export default class GameEngine {
         const currlevel = levels[this.levelNum][0]
         currlevel.forEach(enemy => {
             let enemyInst = new Enemy()
-                enemyInst.x = enemy.x * oneFrac; // this.x = x;
-                enemyInst.y = enemy.y * oneFrac; // this.y = y;
+                enemyInst.x = enemy.x ; // this.x = x;
+                enemyInst.y = enemy.y ; // this.y = y;
                 enemyInst.degree = enemy.degree;
                 Enemy.setVelXandY(enemyInst);
                 // console.log('VX:' + enemyInst.velX)
@@ -60,38 +60,40 @@ export default class GameEngine {
         const currlevel = levels[this.levelNum][1]
         currlevel.forEach(planet => {
             let planetInst = new Planet()
-            planetInst.x = planet.x * oneFrac; // this.x = x;
-            planetInst.y = planet.y * oneFrac; // this.y = y;
+            planetInst.x = planet.x ; // this.x = x;
+            planetInst.y = planet.y ; // this.y = y;
             planetInst.velX = planet.velX; // this.velx = velx;
             planetInst.velY = planet.velY;  // this.vely = vely;
-            planetInst.width = planet.width; // this.size = size;
-            planetInst.height = planet.height; // this.size = size;
+            planetInst.width = planet.width ; // this.size = size;
+            planetInst.height = planet.height ; // this.size = size;
+            planetInst.centerX = planetInst.x + planetInst.width / 2;
+            planetInst.centerY = planetInst.y + planetInst.width / 2;
             planetInst.color = planet.color; // this.color = color;
             planetInst.img = new Image();
             planetInst.img.src = planet.imageSrc;
 
 
             // planet eyes
-            planetInst.radiusEyeIn = 3; // controls puple size
+            planetInst.radiusEyeIn = 5 ; // controls puple size
+                                                    //-10
+            planetInst.eyeYPosition = planetInst.centerY - (planetInst.width / 8); // controlls eyes vertical position relative to face
+            console.log(planetInst.centerX)
+            planetInst.reyedx = planetInst.centerX + (planetInst.radiusEyeIn / 2) + (planetInst.width / 8) ; // controls postion of right puple
+            planetInst.reyedy = planetInst.eyeYPosition ;
 
-            planetInst.eyeYPosition = planetInst.y - 80; // controlls eyes vertical position relative to face
-
-            planetInst.reyedx = planetInst.x + (planetInst.radiusEyeIn / 2) + 14 // controls postion of right puple
-            planetInst.reyedy = planetInst.eyeYPosition
-
-            planetInst.leyedx = planetInst.x - (planetInst.radiusEyeIn / 2) - 14 // controls postion of left puple
-            planetInst.leyedy = planetInst.eyeYPosition
+            planetInst.leyedx = planetInst.centerX - (planetInst.radiusEyeIn / 2) - (planetInst.width / 8) ; // controls postion of left puple
+            planetInst.leyedy = planetInst.eyeYPosition ;
 
             
-            planetInst.eyesgap = 4; // controls how off center the puples eye trackiing is
+            planetInst.eyesgap = (planetInst.width / 12) ; // controls how off center the puples eye trackiing is
             
-            planetInst.reyedxafter = planetInst.reyedx;
-            planetInst.reyedyafter = planetInst.reyedy;
+            planetInst.reyedxafter = planetInst.reyedx ;
+            planetInst.reyedyafter = planetInst.reyedy ;
             
-            planetInst.leyedxafter = planetInst.leyedx;
+            planetInst.leyedxafter = planetInst.leyedx ;
+            planetInst.leyedyafter = planetInst.leyedy ;
             console.log(planetInst.leyedx)
             console.log(planetInst.reyedx)
-            planetInst.leyedyafter = planetInst.leyedy;
 
             this.planets.push(planetInst)
         })
@@ -106,7 +108,6 @@ export default class GameEngine {
                 let currX = fracOfWidth * j
                 let currY = fracOfHeight * i
 
-                
                 if (Math.sqrt((mapRadius - currX) ** 2 + (mapRadius - currY) ** 2) > mapRadius) continue;
                 let star = new Star
                 // star.increment = 4.25;
@@ -146,7 +147,7 @@ export default class GameEngine {
     }
 
     checkGameState() {
-        this.loop();
+        // this.loop();
     }
 
     loop() {
@@ -156,7 +157,5 @@ export default class GameEngine {
         this.move.move()
         requestAnimationFrame(this.checkGameState.bind(this))
     }
-
-
 
 }
