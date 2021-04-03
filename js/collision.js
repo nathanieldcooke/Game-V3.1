@@ -4,12 +4,14 @@ import { angelToSlope, mapDiameter, mapRadius } from './gameUtils.js'
 
 
 export default class Collision {
-    constructor(enemies, planets, stars, rocket) {
+    constructor(enemies, planets, stars, rocket, bullets) {
         // this.mapDiameter = 812 * 1.5;
         // gives display access to elments to be displayed
         this.enemies = enemies;
         this.planets = planets;
         this.rocket = rocket;
+        this.bullets = bullets;
+        this.trashCan = [];
         
         this.FRAME = 1
     }
@@ -18,6 +20,12 @@ export default class Collision {
         this.planetToEnemy();
         this.enemyToWall()
         this.rocketToWall();
+        this.bulletToWall();
+        this.rocketToPlanet()
+        this.rocketToEnemy()
+        this.bulletToEnemy()
+        
+        // this.garbageCollector();
     }
 
     planetToEnemy() {
@@ -53,6 +61,59 @@ export default class Collision {
         })
     }
 
+    rocketToPlanet() {
+
+        this.planets.forEach(planet => {
+            let distanceOfPlanetCenterFromRocket = 
+                Math.sqrt(
+                    ((planet.centerX) - (this.rocket.x + this.rocket.velX)) ** 2 +
+                    ((planet.centerY) - (this.rocket.y + this.rocket.velY)) ** 2
+                );
+
+            if ((planet.width / 2 + this.rocket.width / 2) > (distanceOfPlanetCenterFromRocket)) {
+
+                // window.alert('Hit')
+                return
+            }
+            
+        })
+    }
+
+    bulletToEnemy() {
+        this.enemies.forEach(enemy => {
+            this.bullets.forEach(bullet => {
+                let distanceOfPlanetCenterFromRocket =
+                    Math.sqrt(
+                        ((enemy.x + enemy.size / 2) - (bullet.x)) ** 2 +
+                        ((enemy.y + enemy.size / 2) - (bullet.y)) ** 2
+                    );
+
+                    if ((enemy.size / 2 + bullet.size / 2) > (distanceOfPlanetCenterFromRocket)) {
+
+                        window.alert('Hit')
+                        return
+                    }
+            })
+        })
+    }
+
+    rocketToEnemy() {
+        this.enemies.forEach(enemy => {
+            let distanceOfEnemyCenterFromRocket =
+                Math.sqrt(
+                    ((enemy.x + enemy.size / 2) - (this.rocket.x + this.rocket.velX)) ** 2 +
+                    ((enemy.y + enemy.size / 2) - (this.rocket.y + this.rocket.velY)) ** 2
+                );
+                
+            if ((enemy.size / 2 + this.rocket.width / 2) > (distanceOfEnemyCenterFromRocket)) {
+                // window.alert('Hit')
+                return
+            }
+
+        })
+    }
+    
+
     rocketToWall() {
         // if wall collision occures, travel slope is changed 45 degrees
         let distanceOfCirFromCenter = Math.sqrt((mapRadius - (this.rocket.x + this.rocket.velX)) ** 2 +
@@ -68,5 +129,23 @@ export default class Collision {
             this.rocket.noWallContact = true;
         }
 
+    }
+
+    bulletToWall() {
+        this.bullets.forEach(bullet => {
+            let distanceOfCirFromCenter = Math.sqrt((mapRadius - bullet.x - bullet.size / 2) ** 2 + (mapRadius - bullet.y - bullet.size / 2) ** 2)
+            if (distanceOfCirFromCenter > mapRadius - (bullet.size / 2)) {
+                this.trashCan.push(bullet)
+            }
+        })
+        if (this.trashCan.length) this.garbageCollector(this.bullets)
+    }
+
+    garbageCollector(objectArr) {
+        this.trashCan.forEach(object => {
+            objectArr.splice(objectArr.indexOf(object), 2);
+        });
+
+        this.trashCan.length = 0
     }
 }

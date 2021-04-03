@@ -37,13 +37,13 @@ export default class Move {
             objectArr.forEach(object => {
 
                 if (object instanceof Enemy) {
-                    // this.moveEnemy(object)
+                    this.moveEnemy(object)
                 } else if (object instanceof Rocket) {
                     this.moveRocket(object)
                 } else if (object instanceof Planet) {
                     // this.movePlanet(object)
                 } else if (object instanceof Bullet) {
-                    // this.moveBullet(object)
+                    this.moveBullet(object)
                 }
             })
         })

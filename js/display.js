@@ -54,13 +54,13 @@ export default class Display {
                 if (object instanceof Star) {
                     // this.renderStar(object);
                 } else if ( object instanceof Enemy ) {
-                    // this.renderEnemy(object);
+                    this.renderEnemy(object);
                 } else if ( object instanceof Planet ) {
                     // this.renderPlanet(object);
                 } else if ( object instanceof Rocket ) {
                     this.renderRocket(object);
                 } else if ( object instanceof Bullet ) {
-                    // this.renderBullet(object);
+                    this.renderBullet(object);
                 }
             })
         })
