@@ -1,4 +1,6 @@
 import GameObject from '../gameObject.js'
+import { mapDiameter, mapRadius, onePercent } from '../gameUtils.js'
+
 
 const floatTranslate = {
     '20': 1,
@@ -78,7 +80,7 @@ export default class Star extends GameObject {
     }
 
     static determineStarSize() {
-        let num = this.getRandomInt(1, 10)
+        let num = this.getRandomInt(1, 10) * onePercent / 10
         if (num >= 9) {
             return 3
         } else if ( num >= 6) {

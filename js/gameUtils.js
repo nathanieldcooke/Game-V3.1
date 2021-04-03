@@ -92,14 +92,14 @@ const angelToSlope = {
     '89': [9.998, -0.175],
 }
 
-// const SCREEN_WIDTH = window.innerWidth
-// const SCREEN_HEIGHT = window.innerHeight
-// const mapDiameter = (SCREEN_HEIGHT > SCREEN_WIDTH) ? SCREEN_HEIGHT * 1.5 : SCREEN_WIDTH * 1.5;
-// const mapRadius = mapDiameter / 2
-
-const mapDiameter = 812 * 1.5
+const SCREEN_WIDTH = window.innerWidth
+const SCREEN_HEIGHT = window.innerHeight
+const mapDiameter = (SCREEN_HEIGHT > SCREEN_WIDTH) ? SCREEN_HEIGHT * 1.5 : SCREEN_WIDTH * 1.5;
 const mapRadius = mapDiameter / 2
 
-const oneFrac = mapDiameter / 1000
+// const mapDiameter = 812 * 1.5
+// const mapRadius = mapDiameter / 2
 
-export { angelToSlope, mapDiameter, mapRadius, oneFrac }
+const onePercent = mapDiameter / 100
+
+export { angelToSlope, mapDiameter, mapRadius, onePercent }

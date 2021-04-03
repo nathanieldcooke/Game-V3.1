@@ -6,7 +6,7 @@ import levels from './levels.js'
 import Planet from './gameObjects/planet.js'
 import Star from './gameObjects/stars.js'
 import Collision from './collision.js'
-import { mapDiameter, mapRadius } from './gameUtils.js'
+import { mapDiameter, mapRadius, onePercent } from './gameUtils.js'
 
 // import image from './image.js'
 
@@ -37,16 +37,18 @@ export default class GameEngine {
         const currlevel = levels[this.levelNum][0]
         currlevel.forEach(enemy => {
             let enemyInst = new Enemy()
-                enemyInst.x = enemy.x ; // this.x = x;
-                enemyInst.y = enemy.y ; // this.y = y;
+                enemyInst.x = enemy.x * onePercent; // this.x = x;
+                enemyInst.y = enemy.y * onePercent; // this.y = y;
                 enemyInst.degree = enemy.degree;
                 Enemy.setVelXandY(enemyInst);
+                enemyInst.velX *= onePercent / 10;
+                enemyInst.velY *= onePercent / 10;
                 // console.log('VX:' + enemyInst.velX)
                 // console.log('VY:' + enemyInst.velY)
 
                 // enemyInst.velX = enemy.velX; // this.velx = velx;
                 // enemyInst.velY = enemy.velY;  // this.vely = vely;
-                enemyInst.size = enemy.cirRad; // this.size = size;
+                enemyInst.size = enemy.cirRad * onePercent; // this.size = size;
                 enemyInst.color = enemy.color; // this.color = color;
                 enemyInst.img = new Image();
                 enemyInst.img.src = enemy.imageSrc;
@@ -60,12 +62,12 @@ export default class GameEngine {
         const currlevel = levels[this.levelNum][1]
         currlevel.forEach(planet => {
             let planetInst = new Planet()
-            planetInst.x = planet.x ; // this.x = x;
-            planetInst.y = planet.y ; // this.y = y;
-            planetInst.velX = planet.velX; // this.velx = velx;
-            planetInst.velY = planet.velY;  // this.vely = vely;
-            planetInst.width = planet.width ; // this.size = size;
-            planetInst.height = planet.height ; // this.size = size;
+            planetInst.x = planet.x * onePercent ; // this.x = x;
+            planetInst.y = planet.y * onePercent ; // this.y = y;
+            planetInst.velX = planet.velX * onePercent; // this.velx = velx;
+            planetInst.velY = planet.velY * onePercent;  // this.vely = vely;
+            planetInst.width = planet.width * onePercent; // this.size = size;
+            planetInst.height = planet.height * onePercent; // this.size = size;
             planetInst.centerX = planetInst.x + planetInst.width / 2;
             planetInst.centerY = planetInst.y + planetInst.width / 2;
             planetInst.color = planet.color; // this.color = color;
@@ -74,18 +76,18 @@ export default class GameEngine {
 
 
             // planet eyes
-            planetInst.radiusEyeIn = 5 ; // controls puple size
+            planetInst.radiusEyeIn = onePercent / 2 ; // controls puple size
                                                     //-10
-            planetInst.eyeYPosition = planetInst.centerY - (planetInst.width / 8); // controlls eyes vertical position relative to face
+            planetInst.eyeYPosition = planetInst.centerY - onePercent * 2; // controlls eyes vertical position relative to face
             console.log(planetInst.centerX)
-            planetInst.reyedx = planetInst.centerX + (planetInst.radiusEyeIn / 2) + (planetInst.width / 8) ; // controls postion of right puple
+            planetInst.reyedx = planetInst.centerX + (planetInst.radiusEyeIn / 2) + onePercent * 2 ; // controls postion of right puple
             planetInst.reyedy = planetInst.eyeYPosition ;
 
-            planetInst.leyedx = planetInst.centerX - (planetInst.radiusEyeIn / 2) - (planetInst.width / 8) ; // controls postion of left puple
+            planetInst.leyedx = planetInst.centerX - (planetInst.radiusEyeIn / 2) - onePercent * 2; // controls postion of left puple
             planetInst.leyedy = planetInst.eyeYPosition ;
 
             
-            planetInst.eyesgap = (planetInst.width / 12) ; // controls how off center the puples eye trackiing is
+            planetInst.eyesgap = onePercent ; // controls how off center the puples eye trackiing is
             
             planetInst.reyedxafter = planetInst.reyedx ;
             planetInst.reyedyafter = planetInst.reyedy ;
@@ -135,13 +137,15 @@ export default class GameEngine {
         this.rocket = new Rocket();
         this.rocket.y = mapRadius;
         this.rocket.x = mapRadius;
-        this.rocket.width = 80;
-        this.rocket.height = 100;
+        this.rocket.width = 8 * onePercent;
+        this.rocket.height = 10 * onePercent;
         this.rocket.centerX = this.rocket.x - this.rocket.width / 2;
         this.rocket.centerY = this.rocket.y - this.rocket.width / 2;
         this.rocket.noWallContact = true;
         this.rocket.degree = 0;
         Rocket.setVelXandY(this.rocket);
+        this.rocket.velX * onePercent;
+        this.rocket.velY * onePercent;
         this.rocket.img = new Image();
         this.rocket.img.src = './img/new-rocket-cut.png';
     }

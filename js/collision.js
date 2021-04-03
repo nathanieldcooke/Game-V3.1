@@ -5,11 +5,6 @@ import { angelToSlope, mapDiameter, mapRadius } from './gameUtils.js'
 
 export default class Collision {
     constructor(enemies, planets, stars, rocket) {
-
-
-
-
-
         // this.mapDiameter = 812 * 1.5;
         // gives display access to elments to be displayed
         this.enemies = enemies;
