@@ -90,7 +90,7 @@ export default class Collision {
 
                     if ((enemy.size / 2 + bullet.size / 2) > (distanceOfPlanetCenterFromRocket)) {
 
-                        window.alert('Hit')
+                        // window.alert('Hit')
                         return
                     }
             })
@@ -143,7 +143,7 @@ export default class Collision {
 
     garbageCollector(objectArr) {
         this.trashCan.forEach(object => {
-            objectArr.splice(objectArr.indexOf(object), 2);
+            objectArr.splice(objectArr.indexOf(object), 1);
         });
 
         this.trashCan.length = 0

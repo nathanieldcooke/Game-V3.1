@@ -11,7 +11,7 @@ export default class Move {
         //////////////////////////////////////
         /////Rocket Movement Button Setup/////
         //////////////////////////////////////
-       
+        
         this.controller = new Controller(bullets, rocket)
         this.ROTATE_SPEED = 5;
 
@@ -41,7 +41,7 @@ export default class Move {
                 } else if (object instanceof Rocket) {
                     this.moveRocket(object)
                 } else if (object instanceof Planet) {
-                    // this.movePlanet(object)
+                    this.movePlanet(object)
                 } else if (object instanceof Bullet) {
                     this.moveBullet(object)
                 }

@@ -156,7 +156,6 @@ export default class GameEngine {
     }
 
     loop() {
-        this.count++
         this.display.render()
         this.collision.checkForCollisions()
         this.move.move()
