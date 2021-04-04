@@ -14,17 +14,29 @@
     <div id="main-window">
         <canvas id="game-window">
         </canvas>
+
+        <div id="health-bar-container"> 
+            <div id="health-bar"></div>
+        </div>
         <!-- <img id="jet" src="./img/jet.png" width="50" height="5"> -->
     
-        <!-- <div id='status-panel-1'>
+        <div id='status-panel'>
                 <div id="score">Score: <span id='score-num'>0</span></div>
                 <div></div>
-                <div id="lives">Lives: <img id="space-ship-img-lives" src="./img/triangle.png" alt=""> <img
-                        id="space-ship-img-lives" src="./img/triangle.png" alt=""> <img id="space-ship-img-lives"
-                        src="./img/triangle.png" alt=""> </div>
+                <div id="lives">Lives: <img id="space-ship-img-lives" src="./img/new-rocket-cut.png" alt=""> <img
+                        id="space-ship-img-lives" src="./img/new-rocket-cut.png" alt=""> <img id="space-ship-img-lives"
+                        src="./img/new-rocket-cut.png" alt=""> </div>
                 <div></div>
                 <div>Level: <span id="level">0</span>/20</div>
-            </div> -->
+            </div>
+
+        <div class='radar'>
+            <div class='sweep'></div>
+        </div>
+
+        <div id='radar-canvas-container'>
+            <canvas id="radar-canvas"></canvas>
+        </div>
     
         <div id="buttons">
             <button id='right-button'><i class="fas fa-redo"></i></button>

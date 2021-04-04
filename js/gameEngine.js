@@ -1,5 +1,6 @@
 import Move from './move.js'
 import Display from './display.js'
+import Radar from './radar.js'
 import Enemy from './gameObjects/enemy.js'
 import Rocket from './gameObjects/rocket.js'
 import levels from './levels.js'
@@ -28,6 +29,7 @@ export default class GameEngine {
         this.bullets = []
         this.move = new Move(this.enemies, this.rocket, this.planets, this.bullets);
         this.display = new Display(this.enemies, this.planets, this.stars, this.rocket, this.bullets);
+        this.displayRadar = new Radar(this.enemies, this.planets, this.rocket)
         this.collision = new Collision(this.enemies, this.planets, this.stars, this.rocket, this.bullets)
         this.loop()
     }
@@ -157,6 +159,7 @@ export default class GameEngine {
 
     loop() {
         this.display.render()
+        this.displayRadar.render()
         this.collision.checkForCollisions()
         this.move.move()
         requestAnimationFrame(this.checkGameState.bind(this))
