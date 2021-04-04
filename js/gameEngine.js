@@ -145,6 +145,7 @@ export default class GameEngine {
         this.rocket.centerX = this.rocket.x - this.rocket.width / 2;
         this.rocket.centerY = this.rocket.y - this.rocket.width / 2;
         this.rocket.noWallContact = true;
+        this.rocket.noPlanetContact = true;
         this.rocket.degree = 0;
         Rocket.setVelXandY(this.rocket);
         this.rocket.velX * onePercent;

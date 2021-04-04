@@ -70,7 +70,9 @@ export default class Collision {
                 );
 
             if ((planet.width / 2 + this.rocket.width / 2) > (distanceOfPlanetCenterFromRocket)) {
-
+                this.rocket.degree = (this.rocket.degree + 45) % 360
+                Enemy.setVelXandY(this.rocket)
+                healthBar.decrementHealth(10)
                 // window.alert('Hit')
                 return
             }
@@ -88,12 +90,11 @@ export default class Collision {
                     );
 
                     if ((enemy.size / 2 + bullet.size / 2) > (distanceOfPlanetCenterFromRocket)) {
-
-                        // window.alert('Hit')
-                        return
+                        this.trashCan.push(bullet)
                     }
             })
         })
+        if (this.trashCan.length) this.garbageCollector(this.enemies)
     }
 
     rocketToEnemy() {
@@ -107,7 +108,7 @@ export default class Collision {
             if ((enemy.size / 2 + this.rocket.width / 2) > (distanceOfEnemyCenterFromRocket)) {
                 enemy.degree = (enemy.degree + 45) % 360
                 Enemy.setVelXandY(enemy)
-                healthBar.decrementHealth()
+                healthBar.decrementHealth(.5)
                 // window.alert('Hit')
                 return
             }
