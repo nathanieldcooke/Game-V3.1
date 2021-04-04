@@ -2,6 +2,7 @@ import Enemy from "./gameObjects/enemy.js";
 import Rocket from './gameObjects/rocket.js';
 import { angelToSlope, mapDiameter, mapRadius } from './gameUtils.js'
 import healthBar from './healthBar.js'
+import statusPanel from './statusPanel.js'
 
 
 export default class Collision {
@@ -88,9 +89,10 @@ export default class Collision {
                         ((enemy.x + enemy.size / 2) - (bullet.x)) ** 2 +
                         ((enemy.y + enemy.size / 2) - (bullet.y)) ** 2
                     );
-
+                    
                     if ((enemy.size / 2 + bullet.size / 2) > (distanceOfPlanetCenterFromRocket)) {
-                        this.trashCan.push(bullet)
+                        statusPanel.increaseScore()
+                        this.trashCan.push(this.enemies)
                     }
             })
         })

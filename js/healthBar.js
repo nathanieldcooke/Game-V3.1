@@ -7,6 +7,7 @@ class HealthBar {
 
     decrementHealth(damage) {
         this.health -= damage;
+        if (this.health < 0) this.health = 0;
         this.healthBar.style.height = `${this.health}%`
         this.currColor()
         // console.log('hello')

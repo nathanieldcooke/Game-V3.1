@@ -8,6 +8,7 @@ import Planet from './gameObjects/planet.js'
 import Star from './gameObjects/stars.js'
 import Collision from './collision.js'
 import { mapDiameter, mapRadius, onePercent } from './gameUtils.js'
+import regulator from './regulator.js'
 
 // import image from './image.js'
 
@@ -108,8 +109,8 @@ export default class GameEngine {
         let fracOfWidth = mapDiameter / 300;
         let fracOfHeight = mapDiameter / 300;
         this.stars = [];
-        for(let i = 5; i <= 300; i += 7) {
-            for(let j = 5; j <= 300; j += 7) {
+        for(let i = 5; i <= 300; i += 14) {
+            for(let j = 5; j <= 300; j += 14) {
                 let currX = fracOfWidth * j
                 let currY = fracOfHeight * i
 
@@ -155,6 +156,9 @@ export default class GameEngine {
     }
 
     checkGameState() {
+        regulator.healthBarCheck()
+        regulator.enemiesCheck(this.enemies)
+
         // this.loop();
     }
 
