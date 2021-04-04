@@ -1,6 +1,7 @@
 import Enemy from "./gameObjects/enemy.js";
 import Rocket from './gameObjects/rocket.js';
 import { angelToSlope, mapDiameter, mapRadius } from './gameUtils.js'
+import healthBar from './healthBar.js'
 
 
 export default class Collision {
@@ -24,8 +25,6 @@ export default class Collision {
         this.rocketToPlanet()
         this.rocketToEnemy()
         this.bulletToEnemy()
-        
-        // this.garbageCollector();
     }
 
     planetToEnemy() {
@@ -106,6 +105,9 @@ export default class Collision {
                 );
                 
             if ((enemy.size / 2 + this.rocket.width / 2) > (distanceOfEnemyCenterFromRocket)) {
+                enemy.degree = (enemy.degree + 45) % 360
+                Enemy.setVelXandY(enemy)
+                healthBar.decrementHealth()
                 // window.alert('Hit')
                 return
             }
