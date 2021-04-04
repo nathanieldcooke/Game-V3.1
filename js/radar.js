@@ -4,10 +4,12 @@ import Star from './gameObjects/stars.js'
 import Rocket from './gameObjects/rocket.js'
 import { mapDiameter, mapRadius } from './gameUtils.js'
 import Bullet from './gameObjects/bullet.js'
+import Display from './display.js'
 
 
-export default class Radar {
+export default class Radar extends Display {
     constructor(enemies, planets, rocket) {
+        super()
         // gets HTML canvas element that will display the game
         this.canvas = document.getElementById('radar-canvas');
 
@@ -47,8 +49,6 @@ export default class Radar {
         // // this.ctx.shadowBlur = 0
         // this.ctx.fillRect(0, 0, this.width, this.height)
 
-
-
         this.objectsToRender.forEach(objectArr => {
             objectArr.forEach(object => {
                 if (object instanceof Enemy) {
@@ -62,58 +62,4 @@ export default class Radar {
         })
     }
 
-    renderEnemy(enemy) {
-        this.ctx.beginPath();
-        this.ctx.shadowBlur = enemy.size * 1.5;
-        this.ctx.shadowColor = enemy.color;
-        this.ctx.fillStyle = enemy.color;
-
-        this.ctx.stroke();
-
-        this.ctx.beginPath()
-        this.ctx.drawImage(enemy.img, enemy.x, enemy.y, enemy.size, enemy.size);
-
-        this.ctx.fill()
-        this.ctx.shadowBlur = 0;
-        this.ctx.stroke()
-    }
-
-    renderPlanet(planet) {
-        this.ctx.beginPath();
-        this.ctx.shadowBlur = 20;
-        this.ctx.shadowColor = planet.color;
-        this.ctx.fillStyle = planet.color;
-        this.ctx.drawImage(planet.img, planet.x, planet.y, planet.width, planet.height);
-        this.ctx.fill()
-        this.ctx.shadowBlur = 0;
-        this.ctx.stroke()
-
-
-        //eyes
-
-        // console.log(planet.reyedxafter, planet.reyedyafter, planet.radiusEyeIn)
-        // draws right puple
-        this.ctx.beginPath();
-        this.ctx.arc(planet.reyedxafter, planet.reyedyafter, planet.radiusEyeIn, 0, 2 * Math.PI, false);
-        this.ctx.fillStyle = 'rgba(0,0,0,1)';
-        this.ctx.fill();
-        this.ctx.stroke()
-
-        // draws left puple
-        this.ctx.beginPath();
-        this.ctx.arc(planet.leyedxafter, planet.leyedyafter, planet.radiusEyeIn, 0, 2 * Math.PI, false);
-        this.ctx.fillStyle = 'rgba(0,0,0,1)';
-        this.ctx.fill();
-        this.ctx.stroke()
-    }
-
-    renderRocket(rocket) {
-        this.ctx.save();
-        this.ctx.translate(rocket.x, rocket.y);
-        this.ctx.rotate(rocket.degree * Math.PI / 180);
-        this.ctx.translate(-rocket.x, -rocket.y);
-        // this.ctx.translate(-this.positionX * this.scale, -this.positionY * this.scale);
-        this.ctx.drawImage(rocket.img, rocket.centerY, rocket.centerX, rocket.width, rocket.height);
-        this.ctx.restore()
-    }
 }
