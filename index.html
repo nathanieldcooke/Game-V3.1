@@ -11,9 +11,12 @@
     <title>Document</title>
 </head>
 <body>
+    <video autoplay muted loop id="stars" src="./img/Stars.mp4"></video>
     <div id="main-window">
-        <canvas id="game-window">
-        </canvas>
+        <div id="game-window-container">
+            <img id='game-border' src="./img/game-border.png" alt="">
+            <canvas id="game-window"></canvas>
+        </div>
 
         <div id="health-bar-container"> 
             <div id="health-bar"></div>

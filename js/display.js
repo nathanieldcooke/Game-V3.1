@@ -4,10 +4,11 @@ import Star from './gameObjects/stars.js'
 import Rocket from './gameObjects/rocket.js'
 import { mapDiameter, mapRadius } from './gameUtils.js'
 import Bullet from './gameObjects/bullet.js'
+import EnemyParticle from './gameObjects/enemyParticle.js'
 
 
 export default class Display {
-    constructor(enemies, planets, stars, rocket, bullets) {
+    constructor(enemies, planets, stars, rocket, bullets, enemieParticles) {
         // gets HTML canvas element that will display the game
         this.canvas = document.getElementById('game-window');
 
@@ -22,37 +23,43 @@ export default class Display {
         // will set the context of the canvas element to 2d, and provide 
         // properties that come with canvas
         this.ctx = this.canvas.getContext('2d');
-
+        this.enemieParticles = enemieParticles
         // gives display access to elments to be displayed
-        this.objectsToRender = [stars, enemies, planets, [rocket], bullets];
+        this.objectsToRender = [stars, enemies, planets, [rocket], bullets, enemieParticles];
 
         this.FRAME = 1
     }
 
     render() {
         this.FRAME = (this.FRAME === 60) ? 0 : ++this.FRAME
-
-
+        
+        /// Old Stuff to Hand on for now
+        this.ctx.fillStyle = 'rgba(0,0,0, .25)'
+        // this.ctx.shadowBlur = 0
+        this.ctx.fillRect(0, 0, mapDiameter, mapDiameter)
         /// Draws containeing circle
-
+        
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
         this.ctx.beginPath();
         this.ctx.arc(mapRadius, mapRadius, mapRadius, 0, 2 * Math.PI);
-        this.ctx.fillStyle = "black";
-        this.ctx.fill();
+        // this.ctx.fillStyle = "red";
+        // this.ctx.strokeStyle = 'blue';
+        // this.ctx.fill();
+        // this.ctx.lineWidth = 5;
         this.ctx.stroke();
+        
+        // reset ctx properties to default
+        // this.ctx.lineWidth = 1;
+        // this.ctx.strokeStyle = '#000'
 
 
-        /// Old Stuff to Hand on for now
-        // this.ctx.fillStyle = 'rgba(0,0,0, 1)'
-        // // this.ctx.shadowBlur = 0
-        // this.ctx.fillRect(0, 0, this.width, this.height)
 
 
 
         this.objectsToRender.forEach(objectArr => {
             objectArr.forEach(object => {
                 if (object instanceof Star) {
-                    this.renderStar(object);
+                    // this.renderStar(object);
                 } else if ( object instanceof Enemy ) {
                     this.renderEnemy(object);
                 } else if ( object instanceof Planet ) {
@@ -61,9 +68,37 @@ export default class Display {
                     this.renderRocket(object);
                 } else if ( object instanceof Bullet ) {
                     this.renderBullet(object);
+                } else if (object instanceof EnemyParticle) {
+                    this.renderEnemyParticle(object)
                 }
             })
         })
+    }
+
+    renderEnemyParticle(enemyParticle) {
+        // console.log(enemyParticle)
+        this.ctx.beginPath()
+        this.ctx.fillStyle = enemyParticle.color
+        this.ctx.shadowBlur = enemyParticle.radius * 3;
+        this.ctx.shadowColor = enemyParticle.color;
+        this.ctx.arc(
+            enemyParticle.x,
+            enemyParticle.y,
+            enemyParticle.radius,
+            0,
+            2 * Math.PI)
+        this.ctx.globalAlpha = enemyParticle.opacity
+        this.ctx.fill()
+        this.ctx.stroke()
+            // this.ctx.beginPath
+            // this.ctx.fillStyle = 'rgba(0,0,0, .25)'
+            // // this.ctx.shadowBlur = 0
+            // this.ctx.fillRect(0, 0, mapDiameter, mapDiameter)
+            // this.ctx.stroke()
+        this.ctx.shadowBlur = 0;
+        this.ctx.globalAlpha = 1
+        if (!enemyParticle.nextState()) EnemyParticle.destroy(enemyParticle, this.enemieParticles)
+        // console.log('hello')
     }
     
     renderEnemy(enemy) {

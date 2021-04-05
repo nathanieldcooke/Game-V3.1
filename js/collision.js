@@ -3,16 +3,18 @@ import Rocket from './gameObjects/rocket.js';
 import { angelToSlope, mapDiameter, mapRadius } from './gameUtils.js'
 import healthBar from './healthBar.js'
 import statusPanel from './statusPanel.js'
+import EnemyParticle from './gameObjects/enemyParticle.js'
 
 
 export default class Collision {
-    constructor(enemies, planets, stars, rocket, bullets) {
+    constructor(enemies, planets, stars, rocket, bullets, enemyParticles) {
         // this.mapDiameter = 812 * 1.5;
         // gives display access to elments to be displayed
         this.enemies = enemies;
         this.planets = planets;
         this.rocket = rocket;
         this.bullets = bullets;
+        this.enemyParticles = enemyParticles
         this.trashCan = [];
         
         this.FRAME = 1
@@ -92,7 +94,8 @@ export default class Collision {
                     
                     if ((enemy.size / 2 + bullet.size / 2) > (distanceOfPlanetCenterFromRocket)) {
                         statusPanel.increaseScore()
-                        this.trashCan.push(this.enemies)
+                        this.enemyParticles.push(...EnemyParticle.generateParticles(enemy))
+                        this.trashCan.push(enemy)
                     }
             })
         })

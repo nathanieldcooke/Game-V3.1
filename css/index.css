@@ -15,9 +15,11 @@ body {
     justify-content: center;
     align-self: center;
     overflow: hidden;
+
 }
 
-#game-window {
+#game-window-container {
+    /* box-sizing: border-box; */
     margin-top: 0px;
     /* -200px */
     margin-left: 0px;
@@ -26,12 +28,39 @@ body {
     position: absolute;
     /* background: rgb(0, 0, 0);  */
     /* position: relative;   */
-    overflow: hidden;
+    /* overflow: hidden; */
     /* position: absolute; */
     align-self: center;
     /* justify-self: center; */
+    /* background-color: red; */
+    /* background-image: url('../img/game-border.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 2436px; */
+    display: flex;
+    overflow: visible;
 }
 
+#game-border {
+    height: 2500px;
+    width: 2500px;
+    /* height and width ar 2 times the (width * 1.5) */
+    /* the left is 1/4 the tops result */
+    left: -640px;
+    justify-self: center;
+    align-self: center;
+    display: block;
+    position: absolute;
+}
+
+video {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+
+}
 
 #health-bar-container {
     border: 5px solid rgba(70, 70, 70, .5);
@@ -52,13 +81,15 @@ body {
 #health-bar {
     width: 100%;
     height: 100%;
-    background-color: rgba(35, 229, 84, .15);
+    background-color: rgba(35, 229, 84, 1);
+    opacity: .15;
     align-self: flex-end;
 }
 
 #status-panel {
     width: 100%;
     font-size: 1.5em;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     position: absolute;
     color: white;
     display: flex;
@@ -68,9 +99,19 @@ body {
     top: 15px
 }
 
+#lives {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+}
+
 #space-ship-img-lives {
+    align-self: center;
+    justify-content: space-around;
     height: 20px;
-    width: 20px;
+    width: 12px;
+    padding-left: 10px;
+
 }
 
 /* #score {

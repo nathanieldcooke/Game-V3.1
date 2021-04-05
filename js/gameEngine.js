@@ -8,7 +8,7 @@ import Planet from './gameObjects/planet.js'
 import Star from './gameObjects/stars.js'
 import Collision from './collision.js'
 import { mapDiameter, mapRadius, onePercent } from './gameUtils.js'
-import regulator from './regulator.js'
+import regulator from './index.js'
 
 // import image from './image.js'
 
@@ -16,24 +16,28 @@ export default class GameEngine {
     constructor(levelNum = 0) {
   
         this.levelNum = levelNum;
-        this.start();
-        this.count = 0
-
+        this.setGame()
+        this.loop();
+        this.count = 0;
 
     }
 
-    start() {
+    setGame() {
         this.generateEnemies()
         this.generatePlanets()
         this.generateStarField()
         this.generateRocket()
+        this.enemyParticles = [];
         this.bullets = []
-        this.move = new Move(this.enemies, this.rocket, this.planets, this.bullets);
-        this.display = new Display(this.enemies, this.planets, this.stars, this.rocket, this.bullets);
+        this.move = new Move(this.enemies, this.rocket, this.planets, this.bullets, this.enemyParticles);
+        this.display = new Display(this.enemies, this.planets, this.stars, this.rocket, this.bullets, this.enemyParticles);
         this.displayRadar = new Radar(this.enemies, this.planets, this.rocket)
-        this.collision = new Collision(this.enemies, this.planets, this.stars, this.rocket, this.bullets)
-        this.loop()
+        this.collision = new Collision(this.enemies, this.planets, this.stars, this.rocket, this.bullets, this.enemyParticles)
     }
+
+    // start() {
+    //     this.loop()
+    // }
 
     generateEnemies() {
         // console.log(levels[this.levelNum])
@@ -56,6 +60,7 @@ export default class GameEngine {
                 enemyInst.color = enemy.color; // this.color = color;
                 enemyInst.img = new Image();
                 enemyInst.img.src = enemy.imageSrc;
+                enemyInst.explosionFrames = enemy.imagesExp.map(src => new Image().scr = src)
                 this.enemies.push(enemyInst)
         })
     }
@@ -80,18 +85,18 @@ export default class GameEngine {
 
 
             // planet eyes
-            planetInst.radiusEyeIn = onePercent / 2 ; // controls puple size
+            planetInst.radiusEyeIn = onePercent / planet.radiusEyeIn ; // controls puple size
                                                     //-10
-            planetInst.eyeYPosition = planetInst.centerY - onePercent * 2; // controlls eyes vertical position relative to face
+            planetInst.eyeYPosition = planetInst.centerY - onePercent * planet.eyeYPosition; // controlls eyes vertical position relative to face
             // console.log(planetInst.centerX)
-            planetInst.reyedx = planetInst.centerX + (planetInst.radiusEyeIn / 2) + onePercent * 2 ; // controls postion of right puple
+            planetInst.reyedx = planetInst.centerX + (planetInst.radiusEyeIn / 2) + onePercent * planet.rAndLEyePos; // controls postion of right puple
             planetInst.reyedy = planetInst.eyeYPosition ;
 
-            planetInst.leyedx = planetInst.centerX - (planetInst.radiusEyeIn / 2) - onePercent * 2; // controls postion of left puple
+            planetInst.leyedx = planetInst.centerX - (planetInst.radiusEyeIn / 2) - onePercent * planet.rAndLEyePos; // controls postion of left puple
             planetInst.leyedy = planetInst.eyeYPosition ;
 
             
-            planetInst.eyesgap = onePercent ; // controls how off center the puples eye trackiing is
+            planetInst.eyesgap = onePercent / planet.eyesgap; // controls how off center the puples eye trackiing is
             
             planetInst.reyedxafter = planetInst.reyedx ;
             planetInst.reyedyafter = planetInst.reyedy ;
@@ -141,7 +146,7 @@ export default class GameEngine {
         this.rocket = new Rocket();
         this.rocket.y = mapRadius;
         this.rocket.x = mapRadius;
-        this.rocket.width = 4 * onePercent;
+        this.rocket.width = 3 * onePercent;
         this.rocket.height = 5 * onePercent;
         this.rocket.centerX = this.rocket.x - this.rocket.width / 2;
         this.rocket.centerY = this.rocket.y - this.rocket.width / 2;

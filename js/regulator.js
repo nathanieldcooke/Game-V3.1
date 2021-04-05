@@ -1,15 +1,19 @@
 import statusPanel from './statusPanel.js'
 import healthBar from './healthBar.js'
+import GameEngine from './gameEngine.js'
 
-class Regulator {
+export default class Regulator {
     constructor() {
+        this.gameE = new GameEngine;
     }
 
     healthBarCheck() {
+        // console.log(healthBar.health)
+        // console.log(statusPanel.lives)
         if (healthBar.health === 0 && statusPanel.lives === 0) {
-            window.alert('GAME OVER!!!')
+            this.gameOver()
         } else if (healthBar.health === 0) {
-            window.alert('LEVEL START OVER!!!')
+            this.startLevelOver()
         }
     }
 
@@ -20,11 +24,16 @@ class Regulator {
     }
 
     gameOver() {
-
+        this.gameE.levelNum = 0
+        this.gameE.setGame()
+        healthBar.healthBarReset()
+        statusPanel.resetStatusPanel()
     }
-
+    
     startLevelOver() {
-        
+        this.gameE.setGame()
+        healthBar.healthBarReset()
+        statusPanel.decrementLives()
     }
 
     nextLevel() {
@@ -32,7 +41,3 @@ class Regulator {
     }
 
 }
-
-const regulator = new Regulator;
-
-export default regulator;

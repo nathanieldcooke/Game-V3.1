@@ -4,18 +4,19 @@ import Planet from './gameObjects/planet.js'
 import Bullet from './gameObjects/bullet.js'
 import { angelToSlope, mapDiameter, mapRadius } from './gameUtils.js'
 import Controller from './controller.js'
+import EnemyParticle from './gameObjects/enemyParticle.js'
 
 export default class Move {
-    constructor(enemies, rocket, planets, bullets) {
+    constructor(enemies, rocket, planets, bullets, enemyParticles) {
 
         //////////////////////////////////////
         /////Rocket Movement Button Setup/////
         //////////////////////////////////////
         
         this.controller = new Controller(bullets, rocket)
-        this.ROTATE_SPEED = 5;
+        this.ROTATE_SPEED = 3;
 
-        this.canvasEle = document.querySelector('#game-window');
+        this.canvasEle = document.querySelector('#game-window-container');
         this.canvasEleMarginT = 0
         this.canvasEleMarginL = 0
 
@@ -26,7 +27,7 @@ export default class Move {
 
         this.rocket = rocket
         this.bullets = bullets
-        this.objectsToMove = [enemies, [rocket], planets, bullets]
+        this.objectsToMove = [enemies, [rocket], planets, bullets, enemyParticles]
         
         this.FRAME = 1
     }
@@ -44,9 +45,16 @@ export default class Move {
                     this.movePlanet(object)
                 } else if (object instanceof Bullet) {
                     this.moveBullet(object)
+                } else if (object instanceof EnemyParticle) {
+                    this.moveEnemyParticle(object)
                 }
             })
         })
+    }
+
+    moveEnemyParticle(enemyParticle) {
+        enemyParticle.x += enemyParticle.velX
+        enemyParticle.y += enemyParticle.velY
     }
 
     moveEnemy(enemy) {
