@@ -1,4 +1,7 @@
 body {
+    display: flex;
+    justify-content: center;
+
     margin: 0;
     height: 100vh;
     width: 100vw;
@@ -7,10 +10,13 @@ body {
 }
 
 #main-window {
+    /* border: 100% solid black; */
+    /* padding: 100px; */
+    /* box-sizing: border-box; */
     flex-direction: column;
     position: relative;
-    width: inherit;
-    height: inherit;
+    width: 812px;
+    height: 375px;
     display: flex;
     justify-content: center;
     align-self: center;
