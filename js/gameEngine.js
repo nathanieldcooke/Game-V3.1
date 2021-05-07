@@ -35,9 +35,9 @@ export default class GameEngine {
         this.collision = new Collision(this.enemies, this.planets, this.stars, this.rocket, this.bullets, this.enemyParticles)
     }
 
-    // start() {
-    //     this.loop()
-    // }
+    start() {
+        this.loop()
+    }
 
     generateEnemies() {
         // console.log(levels[this.levelNum])
@@ -60,7 +60,6 @@ export default class GameEngine {
                 enemyInst.color = enemy.color; // this.color = color;
                 enemyInst.img = new Image();
                 enemyInst.img.src = enemy.imageSrc;
-                enemyInst.explosionFrames = enemy.imagesExp.map(src => new Image().scr = src)
                 this.enemies.push(enemyInst)
         })
     }
