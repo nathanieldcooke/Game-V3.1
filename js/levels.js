@@ -11,16 +11,7 @@ export default levels = [
                 degree: 10,
                 cirRad: 4,
                 color: 'rgba(255, 0, 255, 1)',
-                imageSrc: './img/pink-enemy.png',
-                imagesExp: [
-                    './img/pink-enemy-exp-1.png',
-                    './img/pink-enemy-exp-2.png',
-                    './img/pink-enemy-exp-3.png',
-                    './img/pink-enemy-exp-4.png',
-                    './img/pink-enemy-exp-5.png',
-                    './img/pink-enemy-exp-6.png'
-                ]
-
+                imageSrc: './img/pink-enemy.png'
             },
             {
                 x: 19,

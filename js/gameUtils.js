@@ -94,11 +94,11 @@ const angelToSlope = {
 
 const SCREEN_WIDTH = window.innerWidth
 const SCREEN_HEIGHT = window.innerHeight
-const mapDiameter = (SCREEN_HEIGHT > SCREEN_WIDTH) ? SCREEN_HEIGHT * 1.5 : SCREEN_WIDTH * 1.5;
-const mapRadius = mapDiameter / 2
-
-// const mapDiameter = 812 * 1.5
+// const mapDiameter = (SCREEN_HEIGHT > SCREEN_WIDTH) ? SCREEN_HEIGHT * 1.5 : SCREEN_WIDTH * 1.5;
 // const mapRadius = mapDiameter / 2
+
+const mapDiameter = 812 * 1.5
+const mapRadius = mapDiameter / 2
 
 const onePercent = mapDiameter / 100
 
