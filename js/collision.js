@@ -1,5 +1,6 @@
 import Enemy from "./gameObjects/enemy.js";
 import Rocket from './gameObjects/rocket.js';
+import Sound from './sound.js'
 import { angelToSlope, mapDiameter, mapRadius } from './gameUtils.js'
 import healthBar from './healthBar.js'
 import statusPanel from './statusPanel.js'
@@ -16,7 +17,8 @@ export default class Collision {
         this.bullets = bullets;
         this.enemyParticles = enemyParticles
         this.trashCan = [];
-        
+        // this.explosionSound = new Sound('./sound/explosion.wav')
+
         this.FRAME = 1
     }
 
@@ -95,6 +97,8 @@ export default class Collision {
                     if ((enemy.size / 2 + bullet.size / 2) > (distanceOfPlanetCenterFromRocket)) {
                         statusPanel.increaseScore()
                         this.enemyParticles.push(...EnemyParticle.generateParticles(enemy))
+                        // this.explosionSound.play();
+
                         this.trashCan.push(enemy)
                     }
             })

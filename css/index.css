@@ -7,6 +7,7 @@ body {
     width: 100vw;
     position: relative;
     overflow: hidden;
+    background-color: black;
 }
 
 #main-window {
@@ -60,12 +61,11 @@ body {
 }
 
 video {
-    position: fixed;
+    /* position: fixed;
     bottom: 0;
-    right: 0;
-    min-width: 100%;
-    min-height: 100%;
-
+    right: 0; */
+    max-width: 150%;
+    max-height: 150%;
 }
 
 #health-bar-container {
@@ -126,15 +126,27 @@ video {
 
 
 #buttons {
-    display: grid;
-    grid-template-areas: "left shoot right";
+    /* display: grid;
+    grid-template-areas: "left shoot right"; */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.5em;
     height: 12%;
-    width: 80%;
+    width: 90%;
     justify-self: flex-start;
     align-self: center;
     position: absolute;
     bottom: 0px;
     z-index: 1;
+    color: white;
+    /* border-top: 2px solid white */
+}
+
+#button span {
+    display: block;
+    padding-left: 1em;
+    padding-right: 1em;
 }
 
 #right-button {
@@ -172,6 +184,17 @@ i {
 
     /* background-color: red; */
     position: absolute;
+}
+
+.press-enter-div {
+    color: white;
+    position: absolute;
+    align-self: center;
+    font-size: 1.5em;
+    background-color: yellowgreen;
+    border: 2px solid white;
+    padding: 1em;
+    border-radius: 10px;
 }
 
 #radar-canvas {
@@ -212,5 +235,9 @@ i {
   transform-origin: 100% 100%;
   background: linear-gradient(50deg, rgba(34, 34, 34, 0) 56%, hsla(145, 50%, 40%, 1));
   animation: sweep 5s infinite linear;
+}
+
+.hidden {
+    display: none;
 }
 @keyframes sweep { to { transform: rotate(360deg); } }

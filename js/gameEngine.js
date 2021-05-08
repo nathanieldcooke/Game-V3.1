@@ -7,6 +7,7 @@ import levels from './levels.js'
 import Planet from './gameObjects/planet.js'
 import Star from './gameObjects/stars.js'
 import Collision from './collision.js'
+// import Sound from './sound.js'
 import { mapDiameter, mapRadius, onePercent } from './gameUtils.js'
 import regulator from './index.js'
 
@@ -16,19 +17,26 @@ export default class GameEngine {
     constructor(levelNum = 0) {
   
         this.levelNum = levelNum;
+
         this.setGame()
         this.loop();
         this.count = 0;
-
+        this.buttonDiv = document.querySelector('.press-enter-div')
     }
 
     setGame() {
+        let audioEles = document.getElementsByTagName('audio')
+        // Array.from(audioEles).forEach(audioEle => {
+        //     audioEle.pause()
+        //     document.body.removeChild(audioEle)
+        // })
         this.generateEnemies()
         this.generatePlanets()
         this.generateStarField()
         this.generateRocket()
         this.enemyParticles = [];
         this.bullets = []
+        // this.backgoundSound = new Sound('./sound/background.wav')
         this.move = new Move(this.enemies, this.rocket, this.planets, this.bullets, this.enemyParticles);
         this.display = new Display(this.enemies, this.planets, this.stars, this.rocket, this.bullets, this.enemyParticles);
         this.displayRadar = new Radar(this.enemies, this.planets, this.rocket)
@@ -162,15 +170,20 @@ export default class GameEngine {
     checkGameState() {
         regulator.healthBarCheck()
         regulator.enemiesCheck(this.enemies)
-
-        // this.loop();
+        // if (this.move.controller.play)
+        this.loop();
     }
 
     loop() {
-        this.display.render()
-        this.displayRadar.render()
-        this.collision.checkForCollisions()
-        this.move.move()
+        if (this.move.controller.play) {
+            this.display.render()
+            this.displayRadar.render()
+            this.collision.checkForCollisions()
+            this.move.move()
+            this.buttonDiv?.classList.add('hidden')
+        } else {
+            this.buttonDiv?.classList.remove('hidden')
+        }
         requestAnimationFrame(this.checkGameState.bind(this))
     }
 

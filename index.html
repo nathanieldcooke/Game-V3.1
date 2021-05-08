@@ -11,8 +11,8 @@
     <title>Document</title>
 </head>
 <body>
-    <video autoplay muted loop id="stars" src="./img/Stars.mp4"></video>
     <div id="main-window">
+        <video autoplay muted loop id="stars" src="./img/Stars.mp4"></video>
         <div id="game-window-container">
             <img id='game-border' src="./img/game-border.png" alt="">
             <canvas id="game-window"></canvas>
@@ -37,14 +37,21 @@
             <div class='sweep'></div>
         </div>
 
+        <div class='press-enter-div'>
+            <span>Press Enter/Return</span>
+        </div>
+
         <div id='radar-canvas-container'>
             <canvas id="radar-canvas"></canvas>
         </div>
     
         <div id="buttons">
-            <button id='right-button'><i class="fas fa-redo"></i></button>
+            <span>Spacebar: Shoot</span>
+            <span>Enter: Play/Pause</span>
+            <span>Arrow Keys: Left/Right</span>
+            <!-- <button id='right-button'><i class="fas fa-redo"></i></button>
             <button id='shoot-button'><i class="fas fa-ellipsis-v"></i></button>
-            <button id='left-button'><i class="fas fa-undo"></i></button>
+            <button id='left-button'><i class="fas fa-undo"></i></button> -->
         </div>
 </body>
 </html>
