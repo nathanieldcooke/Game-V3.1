@@ -9,7 +9,7 @@ import Star from './gameObjects/stars.js'
 import Collision from './collision.js'
 // import Sound from './sound.js'
 import { mapDiameter, mapRadius, onePercent } from './gameUtils.js'
-import regulator from './index.js'
+import regulator from '../index.js'
 
 // import image from './image.js'
 
