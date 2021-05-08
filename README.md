@@ -8,9 +8,9 @@ This project is an astroids like clone that I built, to exercize my Javascript, 
 ### Features ###
 
 * Collision detections between enemies, bullets, planets and rocket.
-* Radar, do display map that is off-screen
-* Planets eye tracking, following rocket
-* Basic game components: Lives, Score, Level
+* Radar, to display map that is off-screen.
+* Planet eye tracking, following the rocket.
+* Basic game components: Lives, Score, Level.
 
 ### ToDos ###
 
