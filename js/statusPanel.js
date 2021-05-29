@@ -30,7 +30,7 @@ class StatusPanel {
             src="./img/new-rocket-cut.png" alt=""> </div>`
         
         this.level = 0
-        this.levelEle.innerHTML = '0'
+        // this.levelEle.innerHTML = '0'
     }
 }
 
